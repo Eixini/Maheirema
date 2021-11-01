@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/image/icon"/>
+    <qresource prefix="/">
+        <file>maheirema_resource/image/icon/maheirema_logo.png</file>
+    </qresource>
+</RCC>

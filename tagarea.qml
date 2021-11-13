@@ -2,11 +2,11 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.12
 
-TagArea {
+Item{
 
     property alias text: tagText.text           // "Синоним" дочернего синонима для доступа извне
 
-    id: tagarea
+    id: tagAreaControl
     width: parent.width
     height: parent.height
 
@@ -15,11 +15,15 @@ TagArea {
         width: tagElementContent.width      // Изменение размера элемента в зависимости от размера содержимого
         height: 50
         opacity: 50 // Прозрачность
+        color: "#33FFDD"
+        radius: 5
 
         RowLayout{
             id: tagElementContent
-            fillHeight: true
-            fillWidth: true
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
 
             Text {
                 id: tagText

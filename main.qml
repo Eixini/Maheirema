@@ -3,6 +3,12 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.12
 
+/*
+   Заметки разработки:
+   -подключить к кнопкам действия (сигна-слот);
+   - задать дейтсвие при нажатии Enter, когда активен виджет строчки ввода (содержимое будет добавляться в поле тегов);
+*/
+
 Window {
 
     id: windowMain
@@ -10,6 +16,16 @@ Window {
     height: 480
     visible: true
     title: qsTr("Mahεirεma");
+
+    Image {
+        id: backgroundImage
+        source: "qrc:/maheirema_resource/image/image/mh_background.png"
+        width: 1920
+        height: 1080
+        visible: true
+        anchors.fill: parent
+
+    }
 
     ColumnLayout{
         id: headLayout
@@ -23,11 +39,14 @@ Window {
             Layout.fillWidth: true                              // Заполнение всей ширины
             Layout.margins: 15                                  // Установка отступов
             placeholderText: qsTr("Enter the ingredient (example \"potato\")")      // Текст заполнитель
+
         }
 
         /* -------------------------------------- ЗДЕСЬ БУДЕТ ВИДЖЕТ С ВЫБРАННЫМИ ИНГРЕДИЕНТАМИ -------------------------------------------*/
        TagArea{
            id: tagarea
+           Layout.margins: 15
+           anchors.top: enterIngredientsLine.bottom
 
        }
         /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -44,7 +63,7 @@ Window {
                 text: qsTr("Request a recipe")
                 width: 70
                 height: 40
-                Layout.alignment: Qt.AlignBottom | Qt.AlignLeft
+                Layout.alignment: Qt.AlignLeft
             }
 
             Button{
@@ -52,15 +71,9 @@ Window {
                 text: qsTr("Exit")
                 width: 70
                 height: 40
-                Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                Layout.alignment: Qt.AlignRight
             }
         }
     }
 
 }
-
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:2}
-}
-##^##*/

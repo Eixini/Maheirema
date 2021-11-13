@@ -3,4 +3,8 @@
     <qresource prefix="/">
         <file>maheirema_resource/image/icon/maheirema_logo.png</file>
     </qresource>
+    <qresource prefix="/image/image"/>
+    <qresource prefix="/">
+        <file>maheirema_resource/image/image/mh_background.png</file>
+    </qresource>
 </RCC>

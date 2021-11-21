@@ -33,8 +33,7 @@ Window {
 
     ColumnLayout{
         id: headLayout
-        width: windowMain.width
-        height: windowMain.height
+        anchors.fill: parent
 
         // Field for enter Ingredients
         TextField{
@@ -48,56 +47,38 @@ Window {
             Connections{
                 target: enterIngredientsLine
 
-                property var inputText: enterIngredientsLine.text
+                property string inputText: enterIngredientsLine.text
 
                 function onAccepted(){
                     if(enterIngredientsLine.text != "")                 // Если строка пуста, то создание тега не происходит
                         TagCreationScript.createTagObject(inputText);
-                    enterIngredientsLine.text = "";
+                    enterIngredientsLine.text = ""
                 }
 
             }
 
-
-
         }
-
 
         /* -------------------------------------- ЗДЕСЬ БУДЕТ ВИДЖЕТ С ВЫБРАННЫМИ ИНГРЕДИЕНТАМИ -------------------------------------------*/
 
-//        ScrollView{
-//            id: scrollForTagsField
-//            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-//            ScrollBar.horizontal.policy: ScrollBar.AlwaysOn
-//            Layout.alignment: Qt.AlignTop | Qt.AlignVCenter
-//            Layout.margins: 10
-//            Layout.fillWidth: true
-//            height: windowMain.height - enterIngredientsLine.height - buttonsLayout.height;
-//            //clip: true
+        ScrollView {
 
+            id: scrollForTagsField
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+            Layout.margins: 10
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.preferredWidth: windowMain.width
+            clip: true
+            Flow {
 
+                width: scrollForTagsField.width
+                id: tagarea
+                spacing: 7
 
-//        }
-
-        Flow{
-           id: tagarea
-           spacing: 7
-           Layout.alignment: Qt.AlignTop | Qt.AlignVCenter
-           Layout.margins: 10
-           Layout.fillWidth: true
-           height: windowMain.height - enterIngredientsLine.height - buttonsLayout.height;
-
-           ScrollBar.vertical: ScrollBar {
-               parent: tagarea.parent
-               policy: ScrollBar.AsNeeded
-               anchors.top: tagarea.top
-               anchors.right: tagarea.right
-               anchors.bottom: tagarea.bottom
-           }
-
-           Component.onCompleted: TagCreationScript.createTagObject
-
-       }
+            }
+        }
 
         /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
@@ -121,16 +102,12 @@ Window {
                 width: 70
                 height: 40
 
+                onClicked: {
+                    Qt.callLater(Qt.quit);
+                }
+
             }
         }
     }
 
 }
-
-/*      ЗАМЕТКИ ПО ИСПОЛЬЗУЕМЫМ РЕМУРСАМ (Документы, статьи, видео и т.д
-
-  https://doc.qt.io/qt-5/qtqml-javascript-dynamicobjectcreation.html    - создание динамических объектов с помощью JavaScript
-  https://doc.qt.io/qt-5/qtqml-syntax-signals.html#connecting-signals-to-methods-and-signals - Система событий сигналов и обработчиков
-
-
-*/

@@ -3,6 +3,8 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.12
 
+import "tagCreation.js" as TagCreationScript
+
 /*
    Заметки разработки:
    -подключить к кнопкам действия (сигна-слот);
@@ -11,9 +13,11 @@ import QtQuick.Controls 2.12
 
 Window {
 
+    property alias inputText: enterIngredientsLine.text
+
     id: windowMain
     width: 640
-    height: 480
+    //height: 480
     visible: true
     title: qsTr("Mahεirεma");
 
@@ -35,20 +39,66 @@ Window {
         // Field for enter Ingredients
         TextField{
             id: enterIngredientsLine
+            height: 50
             Layout.alignment: Qt.AlignTop | Qt.AlignHCenter     // Выравнивание по верхнему центру
             Layout.fillWidth: true                              // Заполнение всей ширины
             Layout.margins: 15                                  // Установка отступов
             placeholderText: qsTr("Enter the ingredient (example \"potato\")")      // Текст заполнитель
 
+            Connections{
+                target: enterIngredientsLine
+
+                property var inputText: enterIngredientsLine.text
+
+                function onAccepted(){
+                    if(enterIngredientsLine.text != "")                 // Если строка пуста, то создание тега не происходит
+                        TagCreationScript.createTagObject(inputText);
+                    enterIngredientsLine.text = "";
+                }
+
+            }
+
+
+
         }
 
+
         /* -------------------------------------- ЗДЕСЬ БУДЕТ ВИДЖЕТ С ВЫБРАННЫМИ ИНГРЕДИЕНТАМИ -------------------------------------------*/
-       TagArea{
+
+//        ScrollView{
+//            id: scrollForTagsField
+//            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+//            ScrollBar.horizontal.policy: ScrollBar.AlwaysOn
+//            Layout.alignment: Qt.AlignTop | Qt.AlignVCenter
+//            Layout.margins: 10
+//            Layout.fillWidth: true
+//            height: windowMain.height - enterIngredientsLine.height - buttonsLayout.height;
+//            //clip: true
+
+
+
+//        }
+
+        Flow{
            id: tagarea
-           Layout.margins: 15
-           anchors.top: enterIngredientsLine.bottom
+           spacing: 7
+           Layout.alignment: Qt.AlignTop | Qt.AlignVCenter
+           Layout.margins: 10
+           Layout.fillWidth: true
+           height: windowMain.height - enterIngredientsLine.height - buttonsLayout.height;
+
+           ScrollBar.vertical: ScrollBar {
+               parent: tagarea.parent
+               policy: ScrollBar.AsNeeded
+               anchors.top: tagarea.top
+               anchors.right: tagarea.right
+               anchors.bottom: tagarea.bottom
+           }
+
+           Component.onCompleted: TagCreationScript.createTagObject
 
        }
+
         /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
         RowLayout{
@@ -63,7 +113,6 @@ Window {
                 text: qsTr("Request a recipe")
                 width: 70
                 height: 40
-                Layout.alignment: Qt.AlignLeft
             }
 
             Button{
@@ -71,9 +120,17 @@ Window {
                 text: qsTr("Exit")
                 width: 70
                 height: 40
-                Layout.alignment: Qt.AlignRight
+
             }
         }
     }
 
 }
+
+/*      ЗАМЕТКИ ПО ИСПОЛЬЗУЕМЫМ РЕМУРСАМ (Документы, статьи, видео и т.д
+
+  https://doc.qt.io/qt-5/qtqml-javascript-dynamicobjectcreation.html    - создание динамических объектов с помощью JavaScript
+  https://doc.qt.io/qt-5/qtqml-syntax-signals.html#connecting-signals-to-methods-and-signals - Система событий сигналов и обработчиков
+
+
+*/

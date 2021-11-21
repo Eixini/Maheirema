@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>TagArea.qml</file>
+        <file>Tag.qml</file>
     </qresource>
 </RCC>

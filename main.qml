@@ -14,6 +14,7 @@ import "tagCreation.js" as TagCreationScript
 Window {
 
     property alias inputText: enterIngredientsLine.text
+    property alias modelId: tagsModel
 
     id: windowMain
     width: 640
@@ -31,6 +32,10 @@ Window {
 
     }
 
+    ListModel{
+        id: tagsModel
+    }
+
     ColumnLayout{
         id: headLayout
         anchors.fill: parent
@@ -44,18 +49,13 @@ Window {
             Layout.margins: 15                                  // Установка отступов
             placeholderText: qsTr("Enter the ingredient (example \"potato\")")      // Текст заполнитель
 
-            Connections{
-                target: enterIngredientsLine
-
-                property string inputText: enterIngredientsLine.text
-
-                function onAccepted(){
-                    if(enterIngredientsLine.text != "")                 // Если строка пуста, то создание тега не происходит
-                        TagCreationScript.createTagObject(inputText);
-                    enterIngredientsLine.text = ""
+            onAccepted:{
+                    if(text != "")      // Если строка пуста, то создание тега не происходит
+                       tagsModel.append({"tag": text});
+                    text = ""           // Очистка поля ввода после отправки тега в поле тегов
                 }
 
-            }
+
 
         }
 
@@ -76,6 +76,19 @@ Window {
                 width: scrollForTagsField.width
                 id: tagarea
                 spacing: 7
+                padding: 4
+
+                Repeater{
+                    id: tagRepeater
+
+                    delegate:  Tag {
+                            tag: model.tag
+                            onDeleteTag: tagsModel.remove(index)
+                        }
+
+                    model: tagsModel
+
+                }
 
             }
         }
@@ -94,6 +107,18 @@ Window {
                 text: qsTr("Request a recipe")
                 width: 70
                 height: 40
+
+                onClicked: {
+                    // Запрос в БД
+
+                    // ...
+                    // Отладочный код
+
+                    for(var i = 0; i < tagsModel.count ; i++)
+                    {
+                        console.log(tagsModel.get(i).tag + "  ");
+                    }
+                }
             }
 
             Button{

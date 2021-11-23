@@ -5,36 +5,31 @@ import QtQuick.Controls 2.12
 import "tagCreation.js" as TagCreationScript
 
 Rectangle {
-    property alias text: tagText.text
+    property alias tag: tagText.text
+
+    signal deleteTag()
 
     id: tagElement
-    width: tagText.width + tagElementLayout.spacing + deleteTag.width
-    height: tagText.height
+    width: contentRow.width
+    height: contentRow.height
     radius: 5
-    opacity: 75
     color: "#33FFDD"
 
-    RowLayout{
-        id: tagElementLayout
-        spacing: 3
+    Row{
+        id: contentRow
+        spacing: 4
 
         Label {
             id: tagText
-            text: qsTr()
+            anchors.verticalCenter: parent.verticalCenter
         }
         Label {
-            id: deleteTag
-            width: tagText.width
-            height: tagText.height
-            text: " X "
+            text: " ✘ "
 
             MouseArea {
                     anchors.fill: parent
-                    onClicked: {
-
-                        // При нажатии на область, произойдет удаление тега
-                        tagElement.destroy();
-                    }
+                    onClicked: deleteTag()
+                    anchors.verticalCenter: parent.verticalCenter
                 }
         }
 

@@ -3,8 +3,6 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.12
 
-import "tagCreation.js" as TagCreationScript
-
 /*
    Заметки разработки:
    -подключить к кнопкам действия (сигна-слот);
@@ -116,7 +114,7 @@ Window {
 
                     for(var i = 0; i < tagsModel.count ; i++)
                     {
-                        console.log(tagsModel.get(i).tag + "  ");
+                        console.log(tagsModel.get(i).tag);
                     }
                 }
             }

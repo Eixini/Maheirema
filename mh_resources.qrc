@@ -3,7 +3,6 @@
     <qresource prefix="/">
         <file>maheirema_resource/image/icon/maheirema_logo.png</file>
         <file>maheirema_resource/image/image/mh_background.png</file>
-        <file>tagCreation.js</file>
     </qresource>
     <qresource prefix="/image/image"/>
 </RCC>

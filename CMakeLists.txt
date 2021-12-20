@@ -29,6 +29,8 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
+        reciperequest.h
+        reciperequest.cpp
         qml.qrc
         mh_resources.qrc
 )

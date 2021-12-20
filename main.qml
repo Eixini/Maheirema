@@ -3,13 +3,17 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.12
 
+import RecipeRequestModule 1.0      // Модуль из C++
+
 /*
    Заметки разработки:
-   -подключить к кнопкам действия (сигна-слот);
-   - задать дейтсвие при нажатии Enter, когда активен виджет строчки ввода (содержимое будет добавляться в поле тегов);
+    - Добавить возможность менять ращмер шрифта (пользователю);
+
+    ВАЖНО !!!!
+    Исключить возможность ввода повторного раза одного и того же ингредиента !!!
 */
 
-Window {
+ApplicationWindow {
 
     property alias inputText: enterIngredientsLine.text
     property alias modelId: tagsModel
@@ -18,7 +22,11 @@ Window {
     width: 640
     //height: 480
     visible: true
-    title: qsTr("Mahεirεma");
+    title: "Mahεirεma";
+
+    RecipeRequest{
+        id: avaibleIngredientsList
+    }
 
     Image {
         id: backgroundImage
@@ -112,9 +120,23 @@ Window {
                     // ...
                     // Отладочный код
 
-                    for(var i = 0; i < tagsModel.count ; i++)
+                    let tagsTextList = new Array()           // Массив текста тегов для отправки в C++ функцию
+
+                    if(tagsModel.count === 0)
                     {
-                        console.log(tagsModel.get(i).tag);
+                        // Если нет тегов, то показываем соответсвующее сообщение
+                        console.log("Вы не ввели ни одного ингредиента!");
+                    }
+                    else
+                    {
+                        for(var i = 0; i < tagsModel.count ; i++)
+                        {
+                            //console.log(tagsModel.get(i).tag);
+                            tagsTextList[i] = tagsModel.get(i).tag;
+                        }
+                        console.log("Количество введеных ингредиентов (in QML):" + tagsTextList.length);       // В целях отладки
+
+                        avaibleIngredientsList.obtainingRecipesForAvailableIngredients(tagsTextList)
                     }
                 }
             }
@@ -134,3 +156,4 @@ Window {
     }
 
 }
+

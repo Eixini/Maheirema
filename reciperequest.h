@@ -10,6 +10,8 @@
 #include <QVector>
 #include <QFile>
 #include <QStandardPaths>
+#include <QDir>
+#include <QDirIterator>
 #include <QStringList>
 
 #include <algorithm>
@@ -17,40 +19,45 @@
 
 class RecipeRequest : public QObject
 {
+
+    int errorCode_;     // Для передачи значения в QML
+
 private:
 
     Q_OBJECT
     Q_PROPERTY(QStringList avaibleIngredients WRITE obtainingRecipesForAvailableIngredients)
+    Q_PROPERTY(int errorCode READ errorCode NOTIFY availabilityRecipes)
 
     // Для хранения рецептов по ингредиентам (Ингредиенты - ключ, Рецепт - значение)
     std::map<QStringList, QString> recipes_;
 
     QList<std::set<std::string> > respondRecipesList;       // Для хранения рецептов, удовлетворяющих условию (по имеющимся ингредиентам)
 
+    QString appFilePath;                 // Путь для хранения файлов приложения
+
     // Инициализация рецептов и списка ингредиентов для доступа к ним
     void recipeInitialization();
 
-    // Пока что в целях отладки
-        QVector<std::set<std::string> > Recipes;    // Имеющиеся рецепты
+    // Проверка существования директории приложения
+    void checkingApplicationDirectory();
 
-        std::set <std::string> TestRecipe1;
-        std::set <std::string> TestRecipe2;
-        std::set <std::string> TestRecipe3;
-        std::set <std::string> TestRecipe4;
-        std::set <std::string> TestRecipe5;
-        std::set <std::string> TestRecipe6;
-        std::set <std::string> TestRecipe7;
-        std::set <std::string> TestRecipe8;
-        std::set <std::string> TestRecipe9;
-        std::set <std::string> TestRecipe10;
-        std::set <std::string> TestRecipe11;
+    // Проверка на наличие рецептов
+    void availabilityRecipes_Changed();
 
     std::set<std::string> inputIngredients;
 
 public:
 
+    explicit RecipeRequest(QObject *parent = nullptr);
+
     // Функция для вызова извне (QML), принимающая список ингридиентов, и выдающая доступные рецепты, если таковые есть
     Q_INVOKABLE void obtainingRecipesForAvailableIngredients(QStringList availableIngredients);
+
+   int errorCode();
+
+signals:
+
+    void availabilityRecipes(int errorCode);
 
 };
 

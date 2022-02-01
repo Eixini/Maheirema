@@ -28,6 +28,18 @@ ApplicationWindow {
         id: avaibleIngredientsList
     }
 
+    Connections{
+        target: RecipeRequest
+
+        onAvailabilityRecipes: {
+
+            let errorNum = errorCode
+            console.log("Error num:" + errorNum)
+
+        }
+
+    }
+
     Image {
         id: backgroundImage
         source: "qrc:/maheirema_resource/image/image/mh_background.png"
@@ -125,7 +137,10 @@ ApplicationWindow {
                     if(tagsModel.count === 0)
                     {
                         // Если нет тегов, то показываем соответсвующее сообщение
-                        console.log("Вы не ввели ни одного ингредиента!");
+                        console.log("You have not entered any ingredient!");
+
+                        var errorValue = avaibleIngredientsList.errorCode
+                        console.log(errorValue);
                     }
                     else
                     {
@@ -134,9 +149,10 @@ ApplicationWindow {
                             //console.log(tagsModel.get(i).tag);
                             tagsTextList[i] = tagsModel.get(i).tag;
                         }
-                        console.log("Количество введеных ингредиентов (in QML):" + tagsTextList.length);       // В целях отладки
+                        console.log("Number of Ingredients Introduced (in QML):" + tagsTextList.length);       // В целях отладки
 
                         avaibleIngredientsList.obtainingRecipesForAvailableIngredients(tagsTextList)
+
                     }
                 }
             }
@@ -154,6 +170,7 @@ ApplicationWindow {
             }
         }
     }
+
 
 }
 

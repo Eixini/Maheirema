@@ -3,7 +3,7 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.12
 
-import RecipeRequestModule 1.0      // Модуль из C++
+//import RecipeRequestModule 1.0      // Модуль из C++
 
 /*
    Заметки разработки:
@@ -24,18 +24,15 @@ ApplicationWindow {
     visible: true
     title: "Mahεirεma";
 
-    RecipeRequest{
-        id: avaibleIngredientsList
-    }
+//    RecipeRequest{
+//        id: avaibleIngredientsList
+//    }
 
     Connections{
         target: RecipeRequest
 
-        onAvailabilityRecipes: {
-
-            let errorNum = errorCode
-            console.log("Error num:" + errorNum)
-
+        function onErrorNumber() {
+            console.log("Error num:" + errorCode)
         }
 
     }
@@ -127,10 +124,6 @@ ApplicationWindow {
                 height: 40
 
                 onClicked: {
-                    // Запрос в БД
-
-                    // ...
-                    // Отладочный код
 
                     let tagsTextList = new Array()           // Массив текста тегов для отправки в C++ функцию
 
@@ -139,8 +132,8 @@ ApplicationWindow {
                         // Если нет тегов, то показываем соответсвующее сообщение
                         console.log("You have not entered any ingredient!");
 
-                        var errorValue = avaibleIngredientsList.errorCode
-                        console.log(errorValue);
+                        //var errorValue = avaibleIngredientsList.errorCode
+                        //console.log(errorValue);
                     }
                     else
                     {
@@ -151,7 +144,7 @@ ApplicationWindow {
                         }
                         console.log("Number of Ingredients Introduced (in QML):" + tagsTextList.length);       // В целях отладки
 
-                        avaibleIngredientsList.obtainingRecipesForAvailableIngredients(tagsTextList)
+                        RecipeRequest.obtainingRecipesForAvailableIngredients(tagsTextList)
 
                     }
                 }

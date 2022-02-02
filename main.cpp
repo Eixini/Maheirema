@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <QIcon>
 
 #include "reciperequest.h"
@@ -19,7 +20,9 @@ int main(int argc, char *argv[])
     app.setWindowIcon(QIcon(":/maheirema_resource/image/icon/maheirema_logo.png"));
 
     // Регистрация пользовательского типа данных. Теперь функцию C++ можно использовать в QML
-    qmlRegisterType<RecipeRequest>("RecipeRequestModule", 1, 0, "RecipeRequest");
+    //qmlRegisterType<RecipeRequest>("RecipeRequestModule", 1, 0, "RecipeRequest");
+
+    RecipeRequest recipeRequest;
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -28,6 +31,8 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
+
+    engine.rootContext()->setContextProperty("RecipeRequest", &recipeRequest);
     engine.load(url);
 
     return app.exec();

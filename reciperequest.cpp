@@ -45,7 +45,7 @@ RecipeRequest::RecipeRequest(QObject *parent) : QObject(parent)
 
     // +++++++++++++++++++++++++++++++ ФУНКЦИОНАЛ +++++++++++++++++++++++++++++++++++++++
     checkingApplicationDirectory();             // Вызов функции проверки существования директории приложения
-    connect(this, &RecipeRequest::availabilityRecipes, this, [&]() { qDebug() << "\nThe signal is emitted !!!\n";});
+    connect(this, &RecipeRequest::errorNumber, this, [&]() { qDebug() << "\nThe signal is emitted !!!\n";});
     availabilityRecipes_Changed();              // Вызов функции в которой генерируется сигнал для QML
 
 }
@@ -97,12 +97,12 @@ void RecipeRequest::availabilityRecipes_Changed()
     if(QDir(appFilePath + "/Maheirema/Recipes").isEmpty()){
         qDebug() << "The recipe directory is empty!";
         errorCode_ = 1;                   // Код 1 - директория с рецептами пуста
-        emit availabilityRecipes(errorCode_);
+        emit errorNumber(errorCode_);
     }
 
 }
 
-int RecipeRequest::errorCode()  {    return errorCode_;  }
+//int RecipeRequest::errorCode()  {    return errorCode_;  }
 
 void RecipeRequest::recipeInitialization()
 {

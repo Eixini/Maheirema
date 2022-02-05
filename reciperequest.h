@@ -25,8 +25,8 @@ class RecipeRequest : public QObject
 private:
 
     Q_OBJECT
-    //Q_PROPERTY(QStringList avaibleIngredients WRITE obtainingRecipesForAvailableIngredients)
-    //Q_PROPERTY(int errorCode READ errorCode NOTIFY availabilityRecipes)
+    Q_PROPERTY(QStringList avaibleIngredients WRITE obtainingRecipesForAvailableIngredients)
+    Q_PROPERTY(int errorCode READ errorCode NOTIFY errorChanged)
 
     // Для хранения рецептов по ингредиентам (Ингредиенты - ключ, Рецепт - значение)
     std::map<QStringList, QString> recipes_;
@@ -41,8 +41,8 @@ private:
     // Проверка существования директории приложения
     void checkingApplicationDirectory();
 
-    // Проверка на наличие рецептов
-    void availabilityRecipes_Changed();
+    // Проверка на различные ошибки (наличие файлов в директории, их расширение и т.д)
+    void errorChecker();
 
     std::set<std::string> inputIngredients;
 
@@ -53,12 +53,17 @@ public:
     // Функция для вызова извне (QML), принимающая список ингридиентов, и выдающая доступные рецепты, если таковые есть
     Q_INVOKABLE void obtainingRecipesForAvailableIngredients(QStringList availableIngredients);
 
-   //int errorCode();
+    int errorCode() const;
+
+public slots:
+
+    void setError(int newError);
 
 signals:
 
-    void errorNumber(int errorCode);
+    void availabilityRecipes();
 
+    void errorChanged();
 };
 
 #endif // RECIPEREQUEST_H

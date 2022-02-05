@@ -3,7 +3,7 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.12
 
-//import RecipeRequestModule 1.0      // Модуль из C++
+import RecipeRequestModule 1.0      // Модуль из C++
 
 /*
    Заметки разработки:
@@ -24,15 +24,15 @@ ApplicationWindow {
     visible: true
     title: "Mahεirεma";
 
-//    RecipeRequest{
-//        id: avaibleIngredientsList
-//    }
+    RecipeRequest{
+        id: avaibleIngredientsList
+    }
 
-    Connections{
-        target: RecipeRequest
+    Item{
 
-        function onErrorNumber() {
-            console.log("Error num:" + errorCode)
+        function getError() {
+
+            console.log("Error num:" + avaibleIngredientsList.errorCode())
         }
 
     }

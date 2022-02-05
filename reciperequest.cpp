@@ -45,8 +45,8 @@ RecipeRequest::RecipeRequest(QObject *parent) : QObject(parent)
 
     // +++++++++++++++++++++++++++++++ ФУНКЦИОНАЛ +++++++++++++++++++++++++++++++++++++++
     checkingApplicationDirectory();             // Вызов функции проверки существования директории приложения
-    connect(this, &RecipeRequest::errorNumber, this, [&]() { qDebug() << "\nThe signal is emitted !!!\n";});
-    availabilityRecipes_Changed();              // Вызов функции в которой генерируется сигнал для QML
+    connect(this, &RecipeRequest::errorChanged, this, [&]() { qDebug() << "\nThe signal is emitted !!!\n";});
+    errorChecker();                     // Вызов функции в которой генерируется сигнал для QML
 
 }
 
@@ -86,7 +86,7 @@ void RecipeRequest::checkingApplicationDirectory(){
 
 }
 
-void RecipeRequest::availabilityRecipes_Changed()
+void RecipeRequest::errorChecker()
 {
     /*
      В данной функции проверяется, существую ли рецепты в директории для рецептов
@@ -96,13 +96,12 @@ void RecipeRequest::availabilityRecipes_Changed()
     // Проверка, пуста ли директория с рецептами или нет
     if(QDir(appFilePath + "/Maheirema/Recipes").isEmpty()){
         qDebug() << "The recipe directory is empty!";
-        errorCode_ = 1;                   // Код 1 - директория с рецептами пуста
-        emit errorNumber(errorCode_);
+        setError(1);                   // Код 1 - директория с рецептами пуста
     }
 
 }
 
-//int RecipeRequest::errorCode()  {    return errorCode_;  }
+
 
 void RecipeRequest::recipeInitialization()
 {
@@ -139,4 +138,15 @@ void RecipeRequest::obtainingRecipesForAvailableIngredients(QStringList availabl
     qDebug() << "Number of recipes that meet the condition: " << respondRecipesList.count();
 }
 
+int RecipeRequest::errorCode() const
+{
+    return errorCode_;
+}
 
+void RecipeRequest::setError(int newError)
+{
+    if(errorCode_ == newError)
+        return;
+    errorCode_ = newError;
+    emit errorChanged();
+}

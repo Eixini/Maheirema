@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <cassert>
 #include <iostream>
+#include <QTimer>
 
 // ----------- В целях отладки
 
@@ -95,7 +96,7 @@ void RecipeRequest::errorChecker()
 
     // Проверка, пуста ли директория с рецептами или нет
     if(QDir(appFilePath + "/Maheirema/Recipes").isEmpty()){
-        qDebug() << "The recipe directory is empty!";
+        qDebug() << "The recipe directory is empty!\n";
         setError(1);                   // Код 1 - директория с рецептами пуста
     }
 
@@ -148,5 +149,6 @@ void RecipeRequest::setError(int newError)
     if(errorCode_ == newError)
         return;
     errorCode_ = newError;
-    emit errorChanged();
+    QTimer::singleShot(0, this, [this](){emit errorChanged();});
+
 }

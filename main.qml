@@ -1,7 +1,7 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.12
+import QtQuick //2.12
+import QtQuick.Window //2.12
+import QtQuick.Layouts //1.3
+import QtQuick.Controls //2.12
 
 import RecipeRequestModule 1.0      // Модуль из C++
 
@@ -26,15 +26,23 @@ ApplicationWindow {
 
     RecipeRequest{
         id: avaibleIngredientsList
-    }
 
-    Item{
+        onErrorChanged: {
+            console.log("Error num: " + avaibleIngredientsList.errorCode)
 
-        function getError() {
+            // В зависимости от кода ошибки, выводятся соотвествующие предупреждения
 
-            console.log("Error num:" + avaibleIngredientsList.errorCode())
+            /*  Код ошибки 1 - Описание
+                Если errorCode = 1 - "Необходимо загрузить архив рецептов"
+                Необходимо скачать архив с рецептами.
+                Далее открыть специальную вкладку в приложении, где появится специальное окно (что то вроде QFileDialog.
+                Выбрать архив с рецептами и нажать "ОК". После этого, идет провекра,
+                является ли архив - архив с рецептами или же это совсем другой архив.
+                Если же это другой архив - то выдается другой код ошибки.
+                В случае, если архив является архивом с рецептами, то рецепты распаковываются в директорию для хранения рецептов.
+                Затем, идет перепроверка.
+            */
         }
-
     }
 
     Image {

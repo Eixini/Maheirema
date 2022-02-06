@@ -61,8 +61,7 @@ public slots:
 
 signals:
 
-    void availabilityRecipes();
-
+    //void availabilityRecipes();
     void errorChanged();
 };
 

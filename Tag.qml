@@ -20,6 +20,8 @@ Rectangle {
         Label {
             id: tagText
             anchors.verticalCenter: parent.verticalCenter
+
+        // End of block with tag text
         }
         Label {
             text: " ✘ "
@@ -29,8 +31,10 @@ Rectangle {
                     onClicked: deleteTag()
                     anchors.verticalCenter: parent.verticalCenter
                 }
+        // End of block with end character for tag
         }
 
+    // End of text builder block and closing character for tag
     }
 
 }

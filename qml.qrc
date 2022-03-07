@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Tag.qml</file>
+        <file>ResultRecipePage.qml</file>
+        <file>IngredientEntryPage.qml</file>
     </qresource>
 </RCC>

@@ -3,6 +3,8 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
 
+import RecipeModel
+
 Page{
     id: resultRecipeWindow
     title: "Mahεirεma"
@@ -26,21 +28,45 @@ Page{
             id: recipesListAndButtons
             anchors.bottom: parent
 
+            RecipeModel{
+                id: recipeData
+            }
+
             ListView{
                 id: resultRecipesList
+                Layout.alignment: Qt.AlignVCenter
+                spacing: 5
+                clip: true
+                model: recipeData.data
                 delegate: recipeElement
 
             // End of the ListView block for the list of recipes
             }
 
-            Component{
+            Rectangle{
                 id: recipeElement
 
-                Rectangle{
-                    height: 50
-                    width: 100
-                    //text: // Текст будет браться из результатов рецептов
+                height: 30
+                width: 100
+                color: '#33FFDD'
+                radius: 5
+
+                Text {
+                    anchors.fill: parent
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    text: resultRecipesList.model.recipeName
                 }
+
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        recipeDisplay.text = avaibleIngredientsList.openRecipeFile(model.recopeFileName)
+                        console.log(avaibleIngredientsList.openRecipeFile(model.recopeFileName));
+                        // Здесь будет вызываться функция для отправки имени файла в С++ слой для открытия файла
+                    }
+                // End of the MouseArea code block for delegate
+                }
+
             // End of delegate block
             }
 
@@ -65,7 +91,6 @@ Page{
             TextArea{
                 id: recipeDisplay
                 textFormat: TextEdit.RichText
-
 
             // End of the TextArea block to display the text of the recipe on the screen
             }

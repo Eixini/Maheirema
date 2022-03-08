@@ -28,8 +28,20 @@ Page{
 
             ListView{
                 id: resultRecipesList
+                delegate: recipeElement
 
             // End of the ListView block for the list of recipes
+            }
+
+            Component{
+                id: recipeElement
+
+                Rectangle{
+                    height: 50
+                    width: 100
+                    //text: // Текст будет браться из результатов рецептов
+                }
+            // End of delegate block
             }
 
             Button{
@@ -46,6 +58,22 @@ Page{
 
         // End of the ColumnLayout block
         }
+
+        ScrollView{
+            id: scrollRecipeText
+
+            TextArea{
+                id: recipeDisplay
+                textFormat: TextEdit.RichText
+
+
+            // End of the TextArea block to display the text of the recipe on the screen
+            }
+
+        // End of the ScrollView block for scrolling the text of the recipe
+        }
+
+
 
     // End of RowLayout mainLayoutRecipeWindow
     }

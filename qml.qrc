@@ -4,5 +4,6 @@
         <file>Tag.qml</file>
         <file>ResultRecipePage.qml</file>
         <file>IngredientEntryPage.qml</file>
+        <file>AboutApplicationPage.qml</file>
     </qresource>
 </RCC>

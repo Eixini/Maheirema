@@ -2,7 +2,7 @@
 #define RECIPEREQUEST_H
 
 #include <QObject>
-#include <map>
+#include <utility>
 #include <set>
 #include <string>
 #include <QSet>
@@ -13,6 +13,12 @@
 #include <QDir>
 #include <QDirIterator>
 #include <QStringList>
+#include <QIODevice>
+#include <QFileInfo>
+
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 #include <algorithm>
 #include <cctype>
@@ -28,15 +34,12 @@ private:
     Q_PROPERTY(QStringList avaibleIngredients WRITE obtainingRecipesForAvailableIngredients)
     Q_PROPERTY(int errorCode READ errorCode NOTIFY errorChanged)
 
-    // Для хранения рецептов по ингредиентам (Ингредиенты - ключ, Рецепт - значение)
-    std::map<QStringList, QString> recipes_;
-
-    QList<std::set<std::string> > respondRecipesList;       // Для хранения рецептов, удовлетворяющих условию (по имеющимся ингредиентам)
+    QString recipeDirPath; // Recipe directory
+    // To store recipes that meet the condition (by available ingredients)
+    std::pair<std::string, std::string> listSuitableRecipes;
+    QList<std::set<std::string> > respondRecipesList;
 
     QString appFilePath;                 // Путь для хранения файлов приложения
-
-    // Инициализация рецептов и списка ингредиентов для доступа к ним
-    void recipeInitialization();
 
     // Проверка существования директории приложения
     void checkingApplicationDirectory();

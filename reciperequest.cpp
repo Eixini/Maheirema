@@ -111,7 +111,7 @@ void RecipeRequest::obtainingRecipesForAvailableIngredients(QStringList availabl
 
     qDebug() << "Number of Ingredients Introduced (in C++): " << inputIngredients.size();       // Для отладки
 
-    int recipeCounter = 0; // Debug counter containing the number of matching recipes
+    int recipeCounter = 0; // Counter containing the number of matching recipes | Iterator
 
     // Setting the target directory for iteration
     QDirIterator it(recipeDirPath, {"*.json"}, QDir::Files);
@@ -143,8 +143,8 @@ void RecipeRequest::obtainingRecipesForAvailableIngredients(QStringList availabl
 
         // Checking ingredients from recipes and comparing them with entered ingredients
         if(std::includes(inputIngredients.begin(), inputIngredients.end() ,recipeIngredientsString.begin(), recipeIngredientsString.end())  ){
-            listSuitableRecipes.first = recipeName.toStdString();
-            listSuitableRecipes.second = fileInfo.baseName().toStdString() + ".html";
+            qDebug() << recipeName << " - it's Recipe OK!";
+            listSuitableRecipes.push_back(std::make_pair(recipeName.toStdString(),fileInfo.baseName().toStdString() + ".html"));
             recipeCounter++;
         }
     // End of loop block for traversing the recipe directory
@@ -156,6 +156,23 @@ void RecipeRequest::obtainingRecipesForAvailableIngredients(QStringList availabl
 int RecipeRequest::errorCode() const
 {
     return errorCode_;
+}
+
+QVector<std::pair<std::string, std::string> > RecipeRequest::getListSuitableRecipes()
+{
+    return listSuitableRecipes;
+}
+
+QString RecipeRequest::openRecipeFile(QString fileName)
+{
+    QString recipeText;
+
+    QFile recipeFile("recipeDirPath/" + fileName);
+    recipeFile.open(QIODevice::ReadOnly);
+    recipeText = recipeFile.readAll();
+    recipeFile.close();
+
+    return recipeText;
 }
 
 void RecipeRequest::setError(int newError)

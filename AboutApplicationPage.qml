@@ -21,7 +21,7 @@ Page {
         Item{
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             Label{
-                text: "Application version: 0.1"
+                text: "Application version: In developing"
             }
             Label{
                 text: "Developer: Eixini"

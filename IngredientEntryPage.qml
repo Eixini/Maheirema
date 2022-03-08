@@ -104,6 +104,9 @@ Page{
                     {
                         // Если нет тегов, то показываем соответсвующее сообщение
                         console.log("You have not entered any ingredient!");
+                        function ingredientsNotIncluded(){
+                            return "You have not entered any ingredient!";
+                        }
 
                     }
                     else

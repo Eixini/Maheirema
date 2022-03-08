@@ -1,5 +1,4 @@
 #include "reciperequest.h"
-#include <QJsonDocument>
 
 #include <QDebug>
 #include <cassert>
@@ -42,8 +41,7 @@ RecipeRequest::RecipeRequest(QObject *parent) : QObject(parent)
 {
     // ---------------------------- ИНИЦИАЛИЗАЦИЯ ОБЪЕКТОВ ------------------------------
     appFilePath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);    // Путь для хранения файлов приложения
-
-
+    recipeDirPath = appFilePath + "/Maheirema" + "/Recipes";
     // +++++++++++++++++++++++++++++++ ФУНКЦИОНАЛ +++++++++++++++++++++++++++++++++++++++
     checkingApplicationDirectory();             // Вызов функции проверки существования директории приложения
     connect(this, &RecipeRequest::errorChanged, this, [&]() { qDebug() << "\nThe signal is emitted !!!\n";});
@@ -70,7 +68,7 @@ void RecipeRequest::checkingApplicationDirectory(){
     }
 
     // Проверка на существование директории рецептов
-    QDir recipesDir(appFilePath + "/Maheirema" + "/Recipes");
+    QDir recipesDir(recipeDirPath);
 
     if(!recipesDir.exists()){
         qDebug() << "Recipes directory does not exist! A new one will be created.";
@@ -102,16 +100,8 @@ void RecipeRequest::errorChecker()
 
 }
 
-
-
-void RecipeRequest::recipeInitialization()
-{
-
-}
-
 void RecipeRequest::obtainingRecipesForAvailableIngredients(QStringList availableIngredients)
 {
-    recipeInitialization();     // Вызов метода , инициализирующий рецепты
 
     qDebug() << "Number of Ingredients Introduced (in C++, before being placed in the set): " << availableIngredients.count();
 
@@ -121,22 +111,46 @@ void RecipeRequest::obtainingRecipesForAvailableIngredients(QStringList availabl
 
     qDebug() << "Number of Ingredients Introduced (in C++): " << inputIngredients.size();       // Для отладки
 
+    int recipeCounter = 0; // Debug counter containing the number of matching recipes
 
-//    for(auto i = 0; i < Recipes.count(); i++)
-//    {
-//        if(std::includes(Recipes[i].begin(), Recipes[i].end(), inputIngredients.begin(), inputIngredients.end() )  )
-//            respondRecipesList.append(Recipes[i]);  // Если рецепт подходит, то добавляется в контейнер результатов
-//    }
+    // Setting the target directory for iteration
+    QDirIterator it(recipeDirPath, {"*.json"}, QDir::Files);
 
-    // Отладочный вариант
-//    for(auto i = 0; i < Recipes.count(); i++)
-//    {
-//        if(HasAllIngredients(Recipes.at(i),inputIngredients)  )
-//            respondRecipesList.append(Recipes[i]);  // Если рецепт подходит, то добавляется в контейнер результатов
-//    }
+    qDebug() << recipeDirPath;
+    QString jsonText;       // To store code from a JSON document
+    while(it.hasNext()){
+        it.next();
 
+        QFileInfo fileInfo = it.fileInfo();
+        QFile jsonFile(fileInfo.absoluteFilePath());
+        qDebug() << fileInfo.fileName();
+        jsonFile.open(QIODevice::ReadOnly);
+        jsonText = jsonFile.readAll();
+        jsonFile.close();
 
-    qDebug() << "Number of recipes that meet the condition: " << respondRecipesList.count();
+        QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonText.toUtf8());
+        QJsonObject jsonObject = jsonDocument.object();
+        QString recipeName = jsonObject["name"].toString();
+        qDebug() << recipeName;
+        QJsonArray jsonArray = jsonObject["ingredients"].toArray();
+
+        QList<QVariant> recipeIngredients = jsonArray.toVariantList();
+
+        std::set<std::string> recipeIngredientsString;
+        for(auto i = 0; i < recipeIngredients.count(); i++){
+            recipeIngredientsString.insert(recipeIngredients.at(i).toString().toStdString());
+        }
+
+        // Checking ingredients from recipes and comparing them with entered ingredients
+        if(std::includes(inputIngredients.begin(), inputIngredients.end() ,recipeIngredientsString.begin(), recipeIngredientsString.end())  ){
+            listSuitableRecipes.first = recipeName.toStdString();
+            listSuitableRecipes.second = fileInfo.baseName().toStdString() + ".html";
+            recipeCounter++;
+        }
+    // End of loop block for traversing the recipe directory
+    }
+
+    qDebug() << "Number of recipes that meet the condition: " << recipeCounter;
 }
 
 int RecipeRequest::errorCode() const

@@ -11,6 +11,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+#add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
+
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check https://doc.qt.io/qt/deployment-android.html for more information.
 # They need to be set before the find_package(...) calls below.
@@ -31,6 +33,8 @@ set(PROJECT_SOURCES
         main.cpp
         reciperequest.h
         reciperequest.cpp
+        recipemodel.h
+        recipemodel.cpp
         qml.qrc
         mh_resources.qrc
 )

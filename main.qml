@@ -21,12 +21,34 @@ ApplicationWindow {
     visible: true
     title: "Mahεirεma";
 
+    // The toolbar is needed for application settings, settings and display of data, information and help on the application
+    header: ToolBar{
+        id: toolBar
+
+        RowLayout{
+            anchors.fill: parent
+
+            ToolButton{
+                text: qsTr("About application")
+                onClicked: {
+                    stackView.push(aboutApplicationPage);
+                }
+
+            // End of toolbar button code block - application information
+            }
+
+        // End of layout block for toolbar buttons
+        }
+
+    // End of toolbar code block
+    }
+
     RecipeRequest{
         id: avaibleIngredientsList
 
         onErrorChanged: {
             console.log("Error num: " + avaibleIngredientsList.errorCode)
-
+            statusLine.text = "Error num: " + avaibleIngredientsList.errorCode;
             // В зависимости от кода ошибки, выводятся соотвествующие предупреждения
 
             /*  Код ошибки 1 - Описание
@@ -55,6 +77,19 @@ ApplicationWindow {
     ResultRecipePage{
         id: resultRecipePage
         visible: false
+    }
+
+    AboutApplicationPage{
+        id: aboutApplicationPage
+        visible: false
+    }
+
+    // Footer for displaying status information, such as errors filling data, opening a document, etc.
+    footer: Label{
+        id: statusLine
+        text: ""
+
+    // End of Footer block to display status information
     }
 
     // --------------------- КОНЕЦ ГЛАВНОГО ОКНА ПРИЛОЖЕНИЯ ----------------------

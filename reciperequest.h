@@ -36,7 +36,7 @@ private:
 
     QString recipeDirPath; // Recipe directory
     // To store recipes that meet the condition (by available ingredients)
-    std::pair<std::string, std::string> listSuitableRecipes;
+    QVector<std::pair<std::string, std::string> > listSuitableRecipes;
     QList<std::set<std::string> > respondRecipesList;
 
     QString appFilePath;                 // Путь для хранения файлов приложения
@@ -49,14 +49,19 @@ private:
 
     std::set<std::string> inputIngredients;
 
+
 public:
 
     explicit RecipeRequest(QObject *parent = nullptr);
 
     // Функция для вызова извне (QML), принимающая список ингридиентов, и выдающая доступные рецепты, если таковые есть
     Q_INVOKABLE void obtainingRecipesForAvailableIngredients(QStringList availableIngredients);
+    Q_INVOKABLE QString openRecipeFile(QString fileName);
 
     int errorCode() const;
+
+    // To pass the required recipe data to the model
+    QVector<std::pair<std::string, std::string> > getListSuitableRecipes();
 
 public slots:
 

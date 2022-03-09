@@ -144,7 +144,7 @@ void RecipeRequest::obtainingRecipesForAvailableIngredients(QStringList availabl
         // Checking ingredients from recipes and comparing them with entered ingredients
         if(std::includes(inputIngredients.begin(), inputIngredients.end() ,recipeIngredientsString.begin(), recipeIngredientsString.end())  ){
             qDebug() << recipeName << " - it's Recipe OK!";
-            listSuitableRecipes.push_back(std::make_pair(recipeName.toStdString(),fileInfo.baseName().toStdString() + ".html"));
+            listSuitableRecipes.push_back(qMakePair(recipeName,fileInfo.baseName() + ".html"));
             recipeCounter++;
         }
     // End of loop block for traversing the recipe directory
@@ -158,7 +158,7 @@ int RecipeRequest::errorCode() const
     return errorCode_;
 }
 
-QVector<std::pair<std::string, std::string> > RecipeRequest::getListSuitableRecipes()
+QVector<QPair<QString, QString> > RecipeRequest::getListSuitableRecipes()
 {
     return listSuitableRecipes;
 }

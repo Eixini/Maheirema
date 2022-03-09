@@ -7,6 +7,7 @@
 #include <string>
 #include <QSet>
 #include <QString>
+#include <QPair>
 #include <QVector>
 #include <QFile>
 #include <QStandardPaths>
@@ -36,7 +37,7 @@ private:
 
     QString recipeDirPath; // Recipe directory
     // To store recipes that meet the condition (by available ingredients)
-    QVector<std::pair<std::string, std::string> > listSuitableRecipes;
+    QVector<QPair<QString, QString> > listSuitableRecipes;
     QList<std::set<std::string> > respondRecipesList;
 
     QString appFilePath;                 // Путь для хранения файлов приложения
@@ -61,7 +62,7 @@ public:
     int errorCode() const;
 
     // To pass the required recipe data to the model
-    QVector<std::pair<std::string, std::string> > getListSuitableRecipes();
+    QVector<QPair<QString, QString> > getListSuitableRecipes();
 
 public slots:
 

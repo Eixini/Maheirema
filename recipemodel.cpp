@@ -17,11 +17,13 @@ QVariant RecipeModel::data(const QModelIndex &index, int role) const
 {
     if(!index.isValid())
         return QVariant();
+        qDebug() << "In model: invalid index!";
     switch(role){
     case RecipeNameRole:
-        return QVariant(QString::fromStdString(recipeData.at(index.row()).first) );
+        qDebug() << "In model: " << QVariant(QString(recipeData.at(index.row()).first) );
+        return QVariant(QString(recipeData.at(index.row()).first) );
     case RecipeFileNameRole:
-        return QVariant(QString::fromStdString(recipeData.at(index.row()).second) );
+        return QVariant(QString(recipeData.at(index.row()).second) );
     default:
         return QVariant();
 
@@ -30,9 +32,10 @@ QVariant RecipeModel::data(const QModelIndex &index, int role) const
 
 QHash<int, QByteArray> RecipeModel::roleNames() const
 {
-    QHash<int, QByteArray> roles = QAbstractListModel::roleNames();
-    roles[RecipeNameRole] = "recipeName";
-    roles[RecipeFileNameRole] = "recipeFileName";
+    static QHash<int, QByteArray> roles {
+        {RecipeNameRole, "recipeName"},
+        {RecipeFileNameRole, "recipeFileName"}
+    };
 
     return roles;
 }

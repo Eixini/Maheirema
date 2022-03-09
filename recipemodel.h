@@ -18,17 +18,17 @@ public:
     RecipeModel();
 
     enum Roles{
-        RecipeNameRole = Qt::UserRole + 1,
+        RecipeNameRole = Qt::UserRole,
         RecipeFileNameRole
     };
 
-    int rowCount(const QModelIndex &parent) const;
-    QVariant data(const QModelIndex &index, int role) const;
-    QHash<int, QByteArray> roleNames() const;
+    Q_INVOKABLE int rowCount(const QModelIndex &parent) const;
+    Q_INVOKABLE QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+    Q_INVOKABLE QHash<int, QByteArray> roleNames() const;
 
 private:
 
-    QVector<std::pair<std::string, std::string> > recipeData;
+    QVector<QPair<QString, QString> > recipeData;
 
 };
 

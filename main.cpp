@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     // Регистрация пользовательского типа данных. Теперь функцию C++ можно использовать в QML
     qmlRegisterType<RecipeRequest>("RecipeRequestModule", 1, 0, "RecipeRequest");
-    qmlRegisterType<RecipeModel>("RecipeModel", 1, 0, "RecipeModel");
+    qmlRegisterType<RecipeModel>("RecipeModelModule", 1, 0, "RecipeModel");
 
 //    RecipeRequest recipeRequest;
 

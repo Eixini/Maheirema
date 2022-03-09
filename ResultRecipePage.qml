@@ -3,7 +3,7 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import RecipeModel
+import RecipeModelModule
 
 Page{
     id: resultRecipeWindow
@@ -26,7 +26,6 @@ Page{
 
         ColumnLayout{
             id: recipesListAndButtons
-            anchors.bottom: parent
 
             RecipeModel{
                 id: recipeData
@@ -37,43 +36,43 @@ Page{
                 Layout.alignment: Qt.AlignVCenter
                 spacing: 5
                 clip: true
-                model: recipeData.data
-                delegate: recipeElement
+                model: recipeData
+                delegate: Rectangle{
+                    id: recipeElement
+
+                    height: 30
+                    width: resultRecipesList.width
+                    color: '#33FFDD'
+                    radius: 5
+
+                    Text {
+                        anchors.fill: parent
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                        text: model.recipeName
+                    }
+
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            recipeDisplay.text = avaibleIngredientsList.openRecipeFile(model.recopeFileName)
+                            console.log(avaibleIngredientsList.openRecipeFile(model.recopeFileName));
+                            // Здесь будет вызываться функция для отправки имени файла в С++ слой для открытия файла
+                        }
+                    // End of the MouseArea code block for delegate
+                    }
+
+                // End of delegate block
+                }
 
             // End of the ListView block for the list of recipes
             }
 
-            Rectangle{
-                id: recipeElement
 
-                height: 30
-                width: 100
-                color: '#33FFDD'
-                radius: 5
-
-                Text {
-                    anchors.fill: parent
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                    text: resultRecipesList.model.recipeName
-                }
-
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked: {
-                        recipeDisplay.text = avaibleIngredientsList.openRecipeFile(model.recopeFileName)
-                        console.log(avaibleIngredientsList.openRecipeFile(model.recopeFileName));
-                        // Здесь будет вызываться функция для отправки имени файла в С++ слой для открытия файла
-                    }
-                // End of the MouseArea code block for delegate
-                }
-
-            // End of delegate block
-            }
 
             Button{
                 id: toIngredientEntryWindowButton
                 text: qsTr("Вернуться")
-                anchors.bottom: parent
+                Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                 Layout.margins: 15
                 onClicked: {
                     stackView.pop();

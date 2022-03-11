@@ -2,12 +2,9 @@
 #define RECIPEMODEL_H
 
 #include <QAbstractListModel>
-#include <QStringList>
+#include <QModelIndex>
 #include <QString>
 #include <QVector>
-#include <set>
-#include <string>
-#include <vector>
 #include <QPair>
 
 class RecipeModel : public QAbstractListModel
@@ -15,20 +12,28 @@ class RecipeModel : public QAbstractListModel
     Q_OBJECT
 public:
 
-    RecipeModel();
+    RecipeModel(QObject *parent = nullptr);
 
     enum Roles{
-        RecipeNameRole = Qt::UserRole,
+        RecipeNameRole = Qt::UserRole + 1,
         RecipeFileNameRole
     };
 
-    Q_INVOKABLE int rowCount(const QModelIndex &parent) const;
-    Q_INVOKABLE QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    Q_INVOKABLE QHash<int, QByteArray> roleNames() const;
+    int rowCount(const QModelIndex &parent) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QHash<int, QByteArray> roleNames() const;
+
+    Q_INVOKABLE QVector<QPair<QString, QString> > recipes(){
+        return recipeData;
+    }
 
 private:
 
     QVector<QPair<QString, QString> > recipeData;
+
+private slots:
+
+    void recipesLoaded();
 
 };
 

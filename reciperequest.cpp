@@ -145,6 +145,7 @@ void RecipeRequest::obtainingRecipesForAvailableIngredients(QStringList availabl
         if(std::includes(inputIngredients.begin(), inputIngredients.end() ,recipeIngredientsString.begin(), recipeIngredientsString.end())  ){
             qDebug() << recipeName << " - it's Recipe OK!";
             listSuitableRecipes.push_back(qMakePair(recipeName,fileInfo.baseName() + ".html"));
+            qDebug() << "Data size in data-handler (includes): " << listSuitableRecipes.size();
             recipeCounter++;
         }
     // End of loop block for traversing the recipe directory
@@ -160,6 +161,7 @@ int RecipeRequest::errorCode() const
 
 QVector<QPair<QString, QString> > RecipeRequest::getListSuitableRecipes()
 {
+    qDebug() << "Data size in data-handler: " << listSuitableRecipes.size();
     return listSuitableRecipes;
 }
 

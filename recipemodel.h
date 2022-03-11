@@ -15,12 +15,12 @@ public:
     RecipeModel(QObject *parent = nullptr);
 
     enum Roles{
-        RecipeNameRole = Qt::UserRole + 1,
+        RecipeNameRole = Qt::UserRole,
         RecipeFileNameRole
     };
 
     int rowCount(const QModelIndex &parent) const;
-    QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     QHash<int, QByteArray> roleNames() const;
 
     Q_INVOKABLE QVector<QPair<QString, QString> > recipes(){

@@ -3,7 +3,7 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import RecipeModelModule
+//import RecipeModelModule
 
 Page{
     id: resultRecipeWindow
@@ -27,16 +27,16 @@ Page{
         ColumnLayout{
             id: recipesListAndButtons
 
-            RecipeModel{
-                id: recipeData
-            }
+//            RecipeModel{
+//                id: recipeData
+//            }
 
             ListView{
                 id: resultRecipesList
                 Layout.alignment: Qt.AlignVCenter
                 spacing: 5
                 clip: true
-                model: recipeData
+                model: _recipeModel
                 delegate: Rectangle{
                     id: recipeElement
 

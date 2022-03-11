@@ -9,7 +9,9 @@ RecipeModel::RecipeModel(QObject *parent) : QAbstractListModel(parent)
     recipeData = recipeHandlerClass.getListSuitableRecipes();
 
     // { debug
-    recipeData.push_back(qMakePair("Test Recipe", "testrecipe.html"));
+    recipeData.push_back(qMakePair("Test Recipe1", "testrecipe1.html"));
+    recipeData.push_back(qMakePair("Test Recipe2", "testrecipe2.html"));
+    recipeData.push_back(qMakePair("Test Recipe3", "testrecipe3.html"));
     // } debug
 
     QTimer *recipeLoadTimer = new QTimer(this);
@@ -32,16 +34,17 @@ QVariant RecipeModel::data(const QModelIndex &index, int role) const
         return QVariant();
         qDebug() << "In model: invalid index!";
     switch(role){
+    case Qt::DisplayRole:
     case RecipeNameRole:
-        qDebug() << "In model (RecipeNameRole): " << QVariant(QString(recipeData.at(index.row()).first) );
-        return QVariant(QString(recipeData.at(index.row()).first) );
+        qDebug() << "In model (RecipeNameRole): " << recipeData.at(index.row()).first;
+        qDebug() << "In model (RecipeNameRole index): " << QVariant(index);
+        return recipeData.at(index.row()).first;
     case RecipeFileNameRole:
-        qDebug() << "In model(RecipeFileNameRole): " << QVariant(QString(recipeData.at(index.row()).second) );
-        return QVariant(QString(recipeData.at(index.row()).second) );
-    default:
-        return QVariant();
-
+        qDebug() << "In model(RecipeFileNameRole): " << recipeData.at(index.row()).second;
+        return recipeData.at(index.row()).second;
     }
+
+    return QVariant();
 }
 
 QHash<int, QByteArray> RecipeModel::roleNames() const

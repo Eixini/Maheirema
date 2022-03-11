@@ -169,7 +169,7 @@ QString RecipeRequest::openRecipeFile(QString fileName)
 {
     QString recipeText;
 
-    QFile recipeFile("recipeDirPath/" + fileName);
+    QFile recipeFile(recipeDirPath + "/" + fileName);
     recipeFile.open(QIODevice::ReadOnly);
     recipeText = recipeFile.readAll();
     recipeFile.close();

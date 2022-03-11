@@ -1,10 +1,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-//#include <QQmlContext>
+#include <QQmlContext>
 #include <QIcon>
 
 #include "reciperequest.h"
-#include <recipemodel.h>
+#include "recipemodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
 
     // Регистрация пользовательского типа данных. Теперь функцию C++ можно использовать в QML
     qmlRegisterType<RecipeRequest>("RecipeRequestModule", 1, 0, "RecipeRequest");
-    qmlRegisterType<RecipeModel>("RecipeModelModule", 1, 0, "RecipeModel");
+    //qmlRegisterType<RecipeModel>("RecipeModelModule", 1, 0, "RecipeModel");
 
-//    RecipeRequest recipeRequest;
+    RecipeModel recipeModel;
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
-//    engine.rootContext()->setContextProperty("RecipeRequest", &recipeRequest);
+    engine.rootContext()->setContextProperty("_recipeModel", &recipeModel);
     engine.load(url);
 
     return app.exec();

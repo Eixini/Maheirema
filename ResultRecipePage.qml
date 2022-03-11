@@ -3,7 +3,7 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
 
-//import RecipeModelModule
+import RecipeModelModule
 
 Page{
     id: resultRecipeWindow
@@ -27,34 +27,45 @@ Page{
         ColumnLayout{
             id: recipesListAndButtons
 
-//            RecipeModel{
-//                id: recipeData
-//            }
+            RecipeModel{
+                id: recipeData
+            }
 
             ListView{
                 id: resultRecipesList
-                Layout.alignment: Qt.AlignVCenter
+                anchors.fill: parent
+                //Layout.alignment: Qt.AlignVCenter
                 spacing: 5
-                clip: true
-                model: _recipeModel
+                //clip: true
+                header: Rectangle{
+                    width: parent.width
+                    height: 50
+                    color: '#00A287'
+                    Text {
+                        //anchors.centerIn: parent
+                        text: qsTr("Найденный рецепты")
+                    }
+                }
+
+                model: recipeData
                 delegate: Rectangle{
                     id: recipeElement
 
                     height: 30
-                    width: resultRecipesList.width
+                    width: 100
                     color: '#33FFDD'
                     radius: 5
 
                     Text {
-                        anchors.fill: parent
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                        //anchors.fill: parent
+                        //Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                         text: model.recipeName
                     }
 
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            recipeDisplay.text = avaibleIngredientsList.openRecipeFile(model.recopeFileName)
+                            recipeDisplay.text = avaibleIngredientsList.openRecipeFile(model.recipeFileName)
                             console.log(avaibleIngredientsList.openRecipeFile(model.recopeFileName));
                             // Здесь будет вызываться функция для отправки имени файла в С++ слой для открытия файла
                         }
@@ -72,7 +83,7 @@ Page{
             Button{
                 id: toIngredientEntryWindowButton
                 text: qsTr("Вернуться")
-                Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
+                Layout.alignment: Qt.AlignBottom
                 Layout.margins: 15
                 onClicked: {
                     stackView.pop();

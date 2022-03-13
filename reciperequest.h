@@ -2,6 +2,7 @@
 #define RECIPEREQUEST_H
 
 #include <QObject>
+#include <QQmlParserStatus>
 #include <utility>
 #include <set>
 #include <string>
@@ -24,7 +25,7 @@
 #include <algorithm>
 #include <cctype>
 
-class RecipeRequest : public QObject
+class RecipeRequest : public QObject //, public QQmlParserStatus
 {
 
     int errorCode_;     // Для передачи значения в QML
@@ -32,6 +33,7 @@ class RecipeRequest : public QObject
 private:
 
     Q_OBJECT
+//    Q_INTERFACES(QQmlParserStatus)
     Q_PROPERTY(QStringList avaibleIngredients WRITE obtainingRecipesForAvailableIngredients)
     Q_PROPERTY(int errorCode READ errorCode NOTIFY errorChanged)
 
@@ -60,6 +62,9 @@ public:
     Q_INVOKABLE QString openRecipeFile(QString fileName);
 
     int errorCode() const;
+
+//    void classBegin() override;
+//    void componentComplete() override;
 
     // To pass the required recipe data to the model
     QVector<QPair<QString, QString> > getListSuitableRecipes();

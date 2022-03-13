@@ -1,4 +1,5 @@
 #include "reciperequest.h"
+#include "recipemodel.h"
 
 #include <QDebug>
 #include <cassert>
@@ -150,6 +151,13 @@ void RecipeRequest::obtainingRecipesForAvailableIngredients(QStringList availabl
         }
     // End of loop block for traversing the recipe directory
     }
+
+
+//    QTimer::singleShot(0, this, [this]() {    });
+
+    RecipeModel* model = new RecipeModel(this);
+    model->recipesLoaded(listSuitableRecipes);
+
 
     qDebug() << "Number of recipes that meet the condition: " << recipeCounter;
 }

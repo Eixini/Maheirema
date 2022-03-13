@@ -8,6 +8,7 @@ import RecipeModelModule
 Page{
     id: resultRecipeWindow
     title: "Mahεirεma"
+    anchors.fill: windowMain
 
     Image {
         id: backgroundImage
@@ -22,7 +23,10 @@ Page{
 
     RowLayout{
         id: mainLayoutRecipeWindow
-        anchors.fill: parent
+//        anchors.fill: parent
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
 
         ColumnLayout{
             id: recipesListAndButtons
@@ -37,17 +41,21 @@ Page{
                 //Layout.alignment: Qt.AlignVCenter
                 spacing: 5
                 //clip: true
+
+
                 header: Rectangle{
                     width: parent.width
                     height: 50
                     color: '#00A287'
                     Text {
-                        //anchors.centerIn: parent
+                        id: viewHeaderText
+                        anchors.centerIn: parent
                         text: qsTr("Найденный рецепты")
                     }
                 }
 
                 model: recipeData
+
                 delegate: Rectangle{
                     id: recipeElement
 
@@ -57,7 +65,8 @@ Page{
                     radius: 5
 
                     Text {
-                        //anchors.fill: parent
+                        id: recipeNameText
+                        anchors.fill: parent
                         //Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                         text: model.recipeName
                     }
@@ -66,13 +75,22 @@ Page{
                         anchors.fill: parent
                         onClicked: {
                             recipeDisplay.text = avaibleIngredientsList.openRecipeFile(model.recipeFileName)
-                            console.log(avaibleIngredientsList.openRecipeFile(model.recopeFileName));
                             // Здесь будет вызываться функция для отправки имени файла в С++ слой для открытия файла
                         }
                     // End of the MouseArea code block for delegate
                     }
 
                 // End of delegate block
+                }
+
+                Connections{
+                    target: recipeData
+                    onCountChanged: {
+                        console.log("! ============ DATA CHANGED ============ !");
+                        console.log("NEW SUITABLE RECIPE DATA SIZE: ", recipeData.recipeCount());
+                         //recipeNameText = resultRecipesList.model.recipeName;
+                    }
+                // End of the Connections block
                 }
 
             // End of the ListView block for the list of recipes
@@ -83,6 +101,7 @@ Page{
             Button{
                 id: toIngredientEntryWindowButton
                 text: qsTr("Вернуться")
+                anchors.top: resultRecipesList.bottom
                 Layout.alignment: Qt.AlignBottom
                 Layout.margins: 15
                 onClicked: {
@@ -97,6 +116,7 @@ Page{
 
         ScrollView{
             id: scrollRecipeText
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
             TextArea{
                 id: recipeDisplay

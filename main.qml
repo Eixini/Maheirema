@@ -21,6 +21,8 @@ ApplicationWindow {
     visible: true
     title: "Mahεirεma";
 
+    property alias statusText: statusLine.text
+
     // The toolbar is needed for application settings, settings and display of data, information and help on the application
     header: ToolBar{
         id: toolBar

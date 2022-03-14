@@ -20,140 +20,107 @@ Page{
     // End of BACKGROUND image block
     }
 
+    RecipeModel{
+        id: recipeData
+    }
 
-    RowLayout{
-        id: mainLayoutRecipeWindow
-//        anchors.fill: parent
+    ListView{
+        id: resultRecipesList
+        width: 200
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.bottom: toIngredientEntryWindowButton.top
         anchors.left: parent.left
+        spacing: 5
+        clip: true
 
-        ColumnLayout{
-            id: recipesListAndButtons
 
-            RecipeModel{
-                id: recipeData
+        header: Rectangle{
+            width: parent.width
+            height: 50
+            color: '#00A287'
+            Text {
+                id: viewHeaderText
+                anchors.centerIn: parent
+                text: qsTr("Найденный рецепты")
             }
+        }
 
-            ListView{
-                id: resultRecipesList
-                width: 200
-                anchors.top: parent.top
-                anchors.bottom: toIngredientEntryWindowButton.top
-                anchors.left: parent.left
-                spacing: 5
-                //clip: true
-
-
-                header: Rectangle{
-                    width: parent.width
-                    height: 50
-                    color: '#00A287'
-                    Text {
-                        id: viewHeaderText
-                        anchors.centerIn: parent
-                        text: qsTr("Найденный рецепты")
-                    }
-                }
-
-                model: recipeData
+        model: recipeData
 
 //                onCountChanged: {
 //                    console.log("! ============ DATA CHANGED ============ !");
 //                    console.log("DATA SIZE: " + model.recipeCount);
 //                }
 
-                delegate: Rectangle{
-                    id: recipeElement
+        delegate: ItemDelegate {
 
-                    height: 30
-                    width: 100
-                    color: '#33FFDD'
-                    radius: 5
+            id: recipeElement
+            height: 30          // !!! Со временем будет РазмерТекста + некоторое значение
+            width: parent.width
+            background: Rectangle {
+                color: '#33FFDD'
+                radius: 5
+            } // End of background for ItemDelegate
 
-                    Text {
-                        id: recipeNameText
-                        anchors.fill: parent
-                        //Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                        text: model.recipeName
-                    }
+            contentItem: Text {
+                rightPadding: recipeElement.spacing
+                text: model.recipeName
+                elide: Text.ElideRight
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+            } // End of TEXT for "ItemDelegate"
 
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked: {
-                            recipeDisplay.text = avaibleIngredientsList.openRecipeFile(model.recipeFileName)
-                            // Здесь будет вызываться функция для отправки имени файла в С++ слой для открытия файла
-                        }
-                    // End of the MouseArea code block for delegate
-                    }
-
-                // End of delegate block
-                }
-
-                Timer{
-                    id: timerForUpdateView
-                    interval: 1000
-                    repeat: false
-
-                    onTriggered: {
-                        recipeElement.recipeNameText.text = model.recipeName;
-                    }
-
-                // End of Timer code block
-                }
-
-                Connections{
-                    target: recipeData
-                    function onCountChanged() {
-                        console.log("! ============ DATA CHANGED ============ !");
-                        console.log("NEW SUITABLE RECIPE DATA SIZE: ", recipeData.recipeCount());
-                         //recipeNameText = resultRecipesList.model.recipeName;
-                    }
-                // End of the Connections block
-                }
-
-            // End of the ListView block for the list of recipes
+            onClicked: {
+                recipeDisplay.text = avaibleIngredientsList.openRecipeFile(model.recipeFileName)
+                // Здесь будет вызываться функция для отправки имени файла в С++ слой для открытия файла
             }
 
+        } // End of delegate block
 
-
-            Button{
-                id: toIngredientEntryWindowButton
-                text: qsTr("Вернуться")
-                anchors.bottom: parent.bottom
-                anchors.left: resultRecipesList.left
-                anchors.right: resultRecipesList.right
-                onClicked: {
-                    stackView.pop();
-                }
-
-            // End of the Button block to return to the recipe request page
+        Connections{
+            target: recipeData
+            function onCountChanged() {
+                console.log("! ============ DATA CHANGED ============ !");
+                console.log("NEW SUITABLE RECIPE DATA SIZE: ", recipeData.recipeCount());
+                 //recipeNameText = resultRecipesList.model.recipeName;
             }
 
-        // End of the ColumnLayout block
+        } // End of the Connections block
+
+    } // End of the ListView block for the list of recipes
+
+
+
+    Button{
+        id: toIngredientEntryWindowButton
+        text: qsTr("Вернуться")
+        anchors.bottom: parent.bottom
+        anchors.left: resultRecipesList.left
+        anchors.right: resultRecipesList.right
+        onClicked: {
+            stackView.pop();
         }
 
-        ScrollView{
-            id: scrollRecipeText
-            anchors.left: resultRecipesList.right
-            anchors.top: parent.top
-            anchors.right: parent.right
-             anchors.bottom: parent.bottom
+    // End of the Button block to return to the recipe request page
+    }
 
-            TextArea{
-                id: recipeDisplay
-                anchors.fill: parent
-                textFormat: TextEdit.RichText
 
-            // End of the TextArea block to display the text of the recipe on the screen
-            }
+    ScrollView{
+        id: scrollRecipeText
+        anchors.left: resultRecipesList.right
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
 
-        // End of the ScrollView block for scrolling the text of the recipe
+        TextArea{
+            id: recipeDisplay
+            anchors.fill: parent
+            textFormat: TextEdit.RichText
+
+        // End of the TextArea block to display the text of the recipe on the screen
         }
 
-
-
-    // End of RowLayout mainLayoutRecipeWindow
+    // End of the ScrollView block for scrolling the text of the recipe
     }
 
 // End Page resultRecipeWindow

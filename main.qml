@@ -76,9 +76,13 @@ ApplicationWindow {
         id: ingredientEntryPage
     }
 
-    ResultRecipePage{
-        id: resultRecipePage
-        visible: false
+    Component {
+        id: recultRecipePageComponent
+
+        ResultRecipePage{
+            id: resultRecipePage
+            visible: false
+        }
     }
 
     AboutApplicationPage{

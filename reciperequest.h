@@ -66,8 +66,8 @@ public:
 //    void classBegin() override;
 //    void componentComplete() override;
 
-    // To pass the required recipe data to the model
-    QVector<QPair<QString, QString> > getListSuitableRecipes();
+    // To pass the required recipe data size
+    Q_INVOKABLE int getListSuitableRecipesSize();
 
 public slots:
 

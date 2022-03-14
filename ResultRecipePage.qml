@@ -8,7 +8,6 @@ import RecipeModelModule
 Page{
     id: resultRecipeWindow
     title: "Mahεirεma"
-    anchors.fill: windowMain
 
     Image {
         id: backgroundImage
@@ -38,8 +37,10 @@ Page{
 
             ListView{
                 id: resultRecipesList
-                anchors.fill: parent
-                //Layout.alignment: Qt.AlignVCenter
+                width: 200
+                anchors.top: parent.top
+                anchors.bottom: toIngredientEntryWindowButton.top
+                anchors.left: parent.left
                 spacing: 5
                 //clip: true
 
@@ -57,10 +58,10 @@ Page{
 
                 model: recipeData
 
-                onCountChanged: {
-                    console.log("! ============ DATA CHANGED ============ !");
-                    console.log("DATA SIZE: " + model.recipeCount);
-                }
+//                onCountChanged: {
+//                    console.log("! ============ DATA CHANGED ============ !");
+//                    console.log("DATA SIZE: " + model.recipeCount);
+//                }
 
                 delegate: Rectangle{
                     id: recipeElement
@@ -101,15 +102,15 @@ Page{
                 // End of Timer code block
                 }
 
-//                Connections{
-//                    target: recipeData
-//                    onCountChanged: {
-//                        console.log("! ============ DATA CHANGED ============ !");
-//                        console.log("NEW SUITABLE RECIPE DATA SIZE: ", recipeData.recipeCount());
-//                         //recipeNameText = resultRecipesList.model.recipeName;
-//                    }
-//                // End of the Connections block
-//                }
+                Connections{
+                    target: recipeData
+                    function onCountChanged() {
+                        console.log("! ============ DATA CHANGED ============ !");
+                        console.log("NEW SUITABLE RECIPE DATA SIZE: ", recipeData.recipeCount());
+                         //recipeNameText = resultRecipesList.model.recipeName;
+                    }
+                // End of the Connections block
+                }
 
             // End of the ListView block for the list of recipes
             }
@@ -119,9 +120,9 @@ Page{
             Button{
                 id: toIngredientEntryWindowButton
                 text: qsTr("Вернуться")
-                anchors.top: resultRecipesList.bottom
-                Layout.alignment: Qt.AlignBottom
-                Layout.margins: 15
+                anchors.bottom: parent.bottom
+                anchors.left: resultRecipesList.left
+                anchors.right: resultRecipesList.right
                 onClicked: {
                     stackView.pop();
                 }
@@ -134,10 +135,14 @@ Page{
 
         ScrollView{
             id: scrollRecipeText
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            anchors.left: resultRecipesList.right
+            anchors.top: parent.top
+            anchors.right: parent.right
+             anchors.bottom: parent.bottom
 
             TextArea{
                 id: recipeDisplay
+                anchors.fill: parent
                 textFormat: TextEdit.RichText
 
             // End of the TextArea block to display the text of the recipe on the screen

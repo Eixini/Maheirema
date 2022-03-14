@@ -167,10 +167,10 @@ int RecipeRequest::errorCode() const
     return errorCode_;
 }
 
-QVector<QPair<QString, QString> > RecipeRequest::getListSuitableRecipes()
+int RecipeRequest::getListSuitableRecipesSize()
 {
     qDebug() << "Data size in data-handler: " << listSuitableRecipes.size();
-    return listSuitableRecipes;
+    return listSuitableRecipes.size();
 }
 
 QString RecipeRequest::openRecipeFile(QString fileName)

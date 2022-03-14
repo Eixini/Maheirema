@@ -33,17 +33,14 @@ ApplicationWindow {
             ToolButton{
                 text: qsTr("About application")
                 onClicked: {
-                    stackView.push(aboutApplicationPage);
+                    stackView.push(aboutApplicationPageComponent.createObject());
                 }
 
-            // End of toolbar button code block - application information
-            }
+            } // End of toolbar button code block - application information
 
-        // End of layout block for toolbar buttons
-        }
+        } // End of layout block for toolbar buttons
 
-    // End of toolbar code block
-    }
+    } // End of toolbar code block
 
     RecipeRequest{
         id: avaibleIngredientsList
@@ -63,8 +60,8 @@ ApplicationWindow {
                 В случае, если архив является архивом с рецептами, то рецепты распаковываются в директорию для хранения рецептов.
                 Затем, идет перепроверка.
             */
-        }
-    }
+        } // End of Error Discription block
+    } // End of RecipeRequest code
 
     StackView{
         id: stackView
@@ -77,26 +74,29 @@ ApplicationWindow {
     }
 
     Component {
+        id: aboutApplicationPageComponent
+
+        AboutApplicationPage{
+            id: aboutApplicationPage
+            visible: false
+        }
+    } // End of Component for "AboutApplicationPage"
+
+    Component {
         id: recultRecipePageComponent
 
         ResultRecipePage{
             id: resultRecipePage
             visible: false
         }
-    }
-
-    AboutApplicationPage{
-        id: aboutApplicationPage
-        visible: false
-    }
+    } // End of Component for "ResultRecipePage"
 
     // Footer for displaying status information, such as errors filling data, opening a document, etc.
     footer: Label{
         id: statusLine
         text: ""
 
-    // End of Footer block to display status information
-    }
+    } // End of Footer block to display status information
 
     // --------------------- КОНЕЦ ГЛАВНОГО ОКНА ПРИЛОЖЕНИЯ ----------------------
 }

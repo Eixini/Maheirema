@@ -104,10 +104,7 @@ Page{
                     {
                         // Если нет тегов, то показываем соответсвующее сообщение
                         console.log("You have not entered any ingredient!");
-                        function ingredientsNotIncluded(){
-                            return "You have not entered any ingredient!";
-                        }
-
+                        windowMain.statusText = String("You have not entered any ingredient!");
                     }
                     else
                     {
@@ -120,11 +117,30 @@ Page{
 
                         avaibleIngredientsList.obtainingRecipesForAvailableIngredients(tagsTextList)
 
-                        stackView.push(resultRecipePage);
+                        console.log("IN ON CLICK HANDLER: " + avaibleIngredientsList.getListSuitableRecipesSize());
 
+                        // If the number of matching recipes is not equal to 0,
+                        // then a window with the results is opened
+                        if(avaibleIngredientsList.getListSuitableRecipesSize() !== 0){
+                            stackView.push(resultRecipePage);
+
+                            windowMain.statusText =
+                                    String("Found according to your request "
+                                           + avaibleIngredientsList.getListSuitableRecipesSize()
+                                           + " recipes! ");
+                        }
+                        else {
+                            windowMain.statusText =
+                                    String("Found according to your request "
+                                           + avaibleIngredientsList.getListSuitableRecipesSize()
+                                           + " recipes! ");
                     }
-                }
-            }
+
+                    } // End of code block "If there are ingredients entered"
+
+                } // End of Button click (RecipeRequest) handler code block
+
+            } // End of Recipe Request Button Code Block
 
             Button{
                 id: exitButton
@@ -132,15 +148,14 @@ Page{
                 width: 70
                 height: 40
 
-                onClicked: {
-                    Qt.callLater(Qt.quit);
-                }
+                onClicked: { Qt.callLater(Qt.quit); }
 
-            }
-        }
+            } // // End of "Exit Button" Code Block
 
-    // End ColumnLayout headLayout
+        } // End of "Layout for Buttons" Code Block
+
+    // End "ColumnLayout for headLayout" code block
     }
 
-// End Page ingredientEntryWindow
+// End Page "ingredientEntryWindow"
 }

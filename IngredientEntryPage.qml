@@ -108,9 +108,7 @@ Page{
                     }
                     else
                     {
-                        for(var i = 0; i < tagsModel.count ; i++)
-                        {
-                            //console.log(tagsModel.get(i).tag);
+                        for(var i = 0; i < tagsModel.count ; i++){
                             tagsTextList[i] = tagsModel.get(i).tag;
                         }
                         console.log("Number of Ingredients Introduced (in QML):" + tagsTextList.length);       // В целях отладки
@@ -122,7 +120,7 @@ Page{
                         // If the number of matching recipes is not equal to 0,
                         // then a window with the results is opened
                         if(avaibleIngredientsList.getListSuitableRecipesSize() !== 0){
-                            stackView.push(resultRecipePage);
+                            stackView.push(recultRecipePageComponent.createObject());
 
                             windowMain.statusText =
                                     String("Found according to your request "

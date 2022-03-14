@@ -47,6 +47,7 @@ RecipeRequest::RecipeRequest(QObject *parent) : QObject(parent)
     checkingApplicationDirectory();             // Вызов функции проверки существования директории приложения
     connect(this, &RecipeRequest::errorChanged, this, [&]() { qDebug() << "\nThe signal is emitted !!!\n";});
     errorChecker();                     // Вызов функции в которой генерируется сигнал для QML
+    qDebug() << "Recipe Request Constructor CALL !!!";
 
 }
 

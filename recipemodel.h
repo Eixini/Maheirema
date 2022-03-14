@@ -44,7 +44,7 @@ private:
 
 signals:
 
-    void countChanged(int newDataSize);
+    void countChanged();
 
 };
 

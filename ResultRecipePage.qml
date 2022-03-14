@@ -21,6 +21,7 @@ Page{
     // End of BACKGROUND image block
     }
 
+
     RowLayout{
         id: mainLayoutRecipeWindow
 //        anchors.fill: parent
@@ -56,6 +57,11 @@ Page{
 
                 model: recipeData
 
+                onCountChanged: {
+                    console.log("! ============ DATA CHANGED ============ !");
+                    console.log("DATA SIZE: " + model.recipeCount);
+                }
+
                 delegate: Rectangle{
                     id: recipeElement
 
@@ -83,15 +89,27 @@ Page{
                 // End of delegate block
                 }
 
-                Connections{
-                    target: recipeData
-                    onCountChanged: {
-                        console.log("! ============ DATA CHANGED ============ !");
-                        console.log("NEW SUITABLE RECIPE DATA SIZE: ", recipeData.recipeCount());
-                         //recipeNameText = resultRecipesList.model.recipeName;
+                Timer{
+                    id: timerForUpdateView
+                    interval: 1000
+                    repeat: false
+
+                    onTriggered: {
+                        recipeElement.recipeNameText.text = model.recipeName;
                     }
-                // End of the Connections block
+
+                // End of Timer code block
                 }
+
+//                Connections{
+//                    target: recipeData
+//                    onCountChanged: {
+//                        console.log("! ============ DATA CHANGED ============ !");
+//                        console.log("NEW SUITABLE RECIPE DATA SIZE: ", recipeData.recipeCount());
+//                         //recipeNameText = resultRecipesList.model.recipeName;
+//                    }
+//                // End of the Connections block
+//                }
 
             // End of the ListView block for the list of recipes
             }

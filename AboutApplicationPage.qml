@@ -6,43 +6,37 @@ import QtQuick.Controls
 Page {
     id: aboutApplicationWindow
 
-    ColumnLayout{
-        id: aboutApplicationWindowLayout
-        anchors.fill: parent
+    AnimatedImage{
+        id: maheiremaAnimatedLogo
+        source: "qrc:/repository_files/maheirema_gif.gif"
+        anchors.margins: 15
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+    } // End of code block with animation
 
-        AnimatedImage{
-            id: maheiremaAnimatedLogo
-            source: "qrc:/repository_files/maheirema_gif.gif"
-            anchors.margins: 10
-            Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-        // End of code block with animation
-        }
+    Label{
+        id: applicationVersionLabel
+        anchors.top: maheiremaAnimatedLogo.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.margins: 20
+        text: "Application version: In developing"
+    } // End of code block for LABEL "Application version"
 
-        Item{
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            Label{
-                text: "Application version: In developing"
-            }
-            Label{
-                text: "Developer: Eixini"
-            }
+    Label{
+        id: aboutDeveloperLabel
+        anchors.top: applicationVersionLabel.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.margins: 20
+        text: "Developer: Eixini"
+    } // End of code block for LABEL "Developer"
 
-        // End of application information code block
-        }
+    Button{
+        text: qsTr("Back")
+        anchors.margins: 10
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        onClicked: {    stackView.pop();   }
 
-        Button{
-            text: qsTr("Back")
-            Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
-            anchors.margins: 10
-            onClicked: {
-                stackView.pop();
-            }
-        // End of code block for back to main window button
-        }
+    } // End of code block for back to main window button
 
-    // End of app info page builder code block
-    }
-
-
-// End of app info page code block
-}
+} // End of app info page code block

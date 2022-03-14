@@ -66,7 +66,7 @@ void RecipeModel::recipesLoaded(QVector<QPair<QString, QString> > newData){
 
     const int newDataCouny = recipeData.count();
 
-    emit countChanged(recipeData.size());
+    emit countChanged();
 
     qDebug() << "Data size BEFORE update: " << count;
     qDebug() << "Input data size: " << inputDataCount;

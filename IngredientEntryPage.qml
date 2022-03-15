@@ -20,140 +20,135 @@ Page{
         visible: true
         anchors.fill: parent
 
-    // End of BACKGROUND image block
-    }
+    } // End of BACKGROUND image block
 
     ListModel{
         id: tagsModel
     }
 
-    ColumnLayout{
-        id: headLayout
-        anchors.fill: parent
+    // Field for enter Ingredients
+    TextField{
+        id: enterIngredientsLine
+        height: 30  // Со временем сделать высоту исходя из размера шрифта в настройках + некоторое значение
+        width: parent.width - 40
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.margins: 15
+        placeholderText: qsTr("Enter the ingredient (example \"potato\")")      // Текст заполнитель
 
-        // Field for enter Ingredients
-        TextField{
-            id: enterIngredientsLine
-            height: 50
-            Layout.alignment: Qt.AlignTop | Qt.AlignHCenter     // Выравнивание по верхнему центру
-            Layout.fillWidth: true                              // Заполнение всей ширины
-            Layout.margins: 15                                  // Установка отступов
-            placeholderText: qsTr("Enter the ingredient (example \"potato\")")      // Текст заполнитель
-
-            onAccepted:{
-                    if(text != "")      // Если строка пуста, то создание тега не происходит
-                       tagsModel.append({"tag": text});
-                    text = ""           // Очистка поля ввода после отправки тега в поле тегов
-                }
-        // End of the TextField block for entering ingredients
-        }
-
-        ScrollView {
-
-            id: scrollForTagsField
-            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-            Layout.margins: 10
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.preferredWidth: windowMain.width
-            clip: true
-            Flow {
-
-                width: scrollForTagsField.width
-                id: tagarea
-                spacing: 7
-                padding: 4
-
-                Repeater{
-                    id: tagRepeater
-
-                    delegate:  Tag {
-                            tag: model.tag
-                            onDeleteTag: tagsModel.remove(index)
-                        }
-
-                    model: tagsModel
-                // End of the Repeater block
-                }
-            // End of Flow block
+        onAccepted:{
+                if(text != "")      // Если строка пуста, то создание тега не происходит
+                   tagsModel.append({"tag": text});
+                text = ""           // Очистка поля ввода после отправки тега в поле тегов
             }
-        // End of the ScrollView block to scroll the tag field
-        }
 
-        /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+    } // End of the TextField block for entering ingredients
 
-        RowLayout{
-            id: buttonsLayout
-            width: headLayout.width
-            height: 40
-            Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
-            Layout.margins: 15
+    ScrollView {
 
-            Button{
-                id: requestButton
-                text: qsTr("Request a recipe")
-                width: 70
-                height: 40
+        id: scrollForTagsField
+        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        anchors.top: enterIngredientsLine.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: requestButton.top
+        anchors.margins: 15
 
-                onClicked: {
+        clip: true
+        Flow {
 
-                    let tagsTextList = new Array()           // Массив текста тегов для отправки в C++ функцию
+            width: scrollForTagsField.width
+            id: tagarea
+            spacing: 7
+            padding: 4
 
-                    if(tagsModel.count === 0)
-                    {
-                        // Если нет тегов, то показываем соответсвующее сообщение
-                        console.log("You have not entered any ingredient!");
-                        windowMain.statusText = String("You have not entered any ingredient!");
-                    }
-                    else
-                    {
-                        for(var i = 0; i < tagsModel.count ; i++){
-                            tagsTextList[i] = tagsModel.get(i).tag;
-                        }
-                        console.log("Number of Ingredients Introduced (in QML):" + tagsTextList.length);       // В целях отладки
+            Repeater{
+                id: tagRepeater
 
-                        avaibleIngredientsList.obtainingRecipesForAvailableIngredients(tagsTextList)
-
-                        console.log("IN ON CLICK HANDLER: " + avaibleIngredientsList.getListSuitableRecipesSize());
-
-                        // If the number of matching recipes is not equal to 0,
-                        // then a window with the results is opened
-                        if(avaibleIngredientsList.getListSuitableRecipesSize() !== 0){
-                            stackView.push(recultRecipePageComponent.createObject());
-
-                            windowMain.statusText =
-                                    String("Found according to your request "
-                                           + avaibleIngredientsList.getListSuitableRecipesSize()
-                                           + " recipes! ");
-                        }
-                        else {
-                            windowMain.statusText =
-                                    String("Found according to your request "
-                                           + avaibleIngredientsList.getListSuitableRecipesSize()
-                                           + " recipes! ");
+                delegate:  Tag {
+                        tag: model.tag
+                        onDeleteTag: tagsModel.remove(index)
                     }
 
-                    } // End of code block "If there are ingredients entered"
+                model: tagsModel
 
-                } // End of Button click (RecipeRequest) handler code block
+            } // End of the Repeater block
 
-            } // End of Recipe Request Button Code Block
+        } // End of Flow block
 
-            Button{
-                id: exitButton
-                text: qsTr("Exit")
-                width: 70
-                height: 40
-
-                onClicked: { Qt.callLater(Qt.quit); }
-
-            } // // End of "Exit Button" Code Block
-
-        } // End of "Layout for Buttons" Code Block
-
-    // End "ColumnLayout for headLayout" code block
+    // End of the ScrollView block to scroll the tag field
     }
+
+    /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+        Button{
+            id: requestButton
+            text: qsTr("Request a recipe")
+            width: 120
+            height: 40
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.leftMargin: 30
+            anchors.bottomMargin: 10
+
+            onClicked: {
+
+                let tagsTextList = new Array()           // Массив текста тегов для отправки в C++ функцию
+
+                if(tagsModel.count === 0)
+                {
+                    // Если нет тегов, то показываем соответсвующее сообщение
+                    console.log("You have not entered any ingredient!");
+                    windowMain.statusText = String("You have not entered any ingredient!");
+                }
+                else
+                {
+                    for(var i = 0; i < tagsModel.count ; i++){
+                        tagsTextList[i] = tagsModel.get(i).tag;
+                    }
+                    console.log("Number of Ingredients Introduced (in QML):" + tagsTextList.length);       // В целях отладки
+
+                    avaibleIngredientsList.obtainingRecipesForAvailableIngredients(tagsTextList)
+
+                    let suitableDataSize = avaibleIngredientsList.getListSuitableRecipesSize();
+                    console.log("IN ON CLICK HANDLER: " + suitableDataSize);
+
+                    // If the number of matching recipes is not equal to 0,
+                    // then a window with the results is opened
+                    if(suitableDataSize !== 0){
+                        stackView.push(recultRecipePageComponent.createObject());
+
+                        windowMain.statusText =
+                                String("Found according to your request " + suitableDataSize + " recipes! ");
+                    }
+                    else {
+                        windowMain.statusText =
+                                String("Found according to your request " + suitableDataSize + " recipes! ");
+                }
+
+                } // End of code block "If there are ingredients entered"
+
+            } // End of Button click (RecipeRequest) handler code block
+
+        } // End of Recipe Request Button Code Block
+
+        Button{
+            id: exitButton
+            text: qsTr("Exit")
+            width: 70
+            height: 40
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.rightMargin: 30
+            anchors.bottomMargin: 10
+
+            onClicked: { Qt.callLater(Qt.quit); }
+
+        } // // End of "Exit Button" Code Block
+
+
 
 // End Page "ingredientEntryWindow"
 }

@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>Tag.qml</file>
-        <file>ResultRecipePage.qml</file>
-        <file>IngredientEntryPage.qml</file>
-        <file>AboutApplicationPage.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/Tag.qml</file>
+        <file>qml/ResultRecipePage.qml</file>
+        <file>qml/IngredientEntryPage.qml</file>
+        <file>qml/AboutApplicationPage.qml</file>
     </qresource>
 </RCC>

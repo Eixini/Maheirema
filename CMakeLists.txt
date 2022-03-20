@@ -30,11 +30,13 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 
 set(PROJECT_SOURCES
-        main.cpp
-        reciperequest.h
-        reciperequest.cpp
-        recipemodel.h
-        recipemodel.cpp
+        sources/main.cpp
+        headers/reciperequest.h
+        sources/reciperequest.cpp
+        headers/recipemodel.h
+        sources/recipemodel.cpp
+        headers/recipefilterproxymodel.h
+        sources/recipefilterproxymodel.cpp
         qml.qrc
         mh_resources.qrc
 )

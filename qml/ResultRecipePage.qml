@@ -14,6 +14,7 @@ Page{
     RecipeFilterProxyModel {
         id: filteredModel
         model: resultRecipeWindow.model
+        indredients: []
     }
 
     Image {

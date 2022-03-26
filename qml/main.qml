@@ -16,6 +16,8 @@ import RecipeModel
 
 ApplicationWindow {
 
+    property RecipeModel model
+
     id: windowMain
     width: 640
     //height: 480
@@ -23,6 +25,11 @@ ApplicationWindow {
     title: "Mahεirεma";
 
     property alias statusText: statusLine.text
+
+    RecipeModel{
+        id: recipeData
+        onDataChanged: {console.log("Data in model Changed!")}
+    }
 
     // The toolbar is needed for application settings, settings and display of data, information and help on the application
     header: ToolBar{
@@ -67,12 +74,20 @@ ApplicationWindow {
     StackView{
         id: stackView
         anchors.fill: parent
-        initialItem: ingredientEntryPage
+        initialItem: ingredientEntryPageComponent.createObject()
     }
 
-    IngredientEntryPage{
-        id: ingredientEntryPage
-    }
+    Component {
+        id: ingredientEntryPageComponent
+
+        IngredientEntryPage{
+            id: ingredientEntryPage
+            visible: true
+            recipeModel: recipeData
+        }
+    } // End of Component for "ingredientEntryPage"
+
+
 
     Component {
         id: aboutApplicationPageComponent
@@ -84,11 +99,12 @@ ApplicationWindow {
     } // End of Component for "AboutApplicationPage"
 
     Component {
-        id: recultRecipePageComponent
+        id: resultRecipePageComponent
 
         ResultRecipePage{
             id: resultRecipePage
             visible: false
+            model: recipeData
         }
     } // End of Component for "ResultRecipePage"
 

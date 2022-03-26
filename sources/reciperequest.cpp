@@ -204,6 +204,12 @@ QString RecipeRequest::openRecipeFile(QString fileName)
     return recipeText;
 }
 
+int RecipeRequest::numberEligibleRecipes(QStringList inputData)
+{
+    QVector<RecipeRequest::RecipeData> rSize = obtainingRecipesForAvailableIngredients(inputData);
+    return rSize.size();
+}
+
 void RecipeRequest::setError(int newError)
 {
     if(errorCode_ == newError)

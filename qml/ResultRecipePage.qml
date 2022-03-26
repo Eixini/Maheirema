@@ -27,12 +27,6 @@ Page{
     // End of BACKGROUND image block
     }
 
-    RecipeModel{
-        id: recipeData
-        onDataChanged: {console.log("Aaaa")}
-
-    }
-
     ListView{
         id: resultRecipesList
         width: 200

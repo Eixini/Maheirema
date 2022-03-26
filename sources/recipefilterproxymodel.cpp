@@ -8,7 +8,7 @@ bool RecipeFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
 {
     if (!m_model) return false;
     bool result = true;
-    for (auto & str: m_ingridients)
+    for (auto & str: m_ingredients)
         result = result && m_model->haveIngredient(source_row, str);
 
     return result;
@@ -29,15 +29,15 @@ void RecipeFilterProxyModel::setModel(RecipeModel *newModel)
     emit modelChanged();
 }
 
-const QStringList &RecipeFilterProxyModel::ingridients() const
+const QStringList &RecipeFilterProxyModel::ingredients() const
 {
-    return m_ingridients;
+    return m_ingredients;
 }
 
-void RecipeFilterProxyModel::setIngridients(const QStringList &newIngridients)
+void RecipeFilterProxyModel::setIngredients(const QStringList &newIngridients)
 {
-    if (m_ingridients == newIngridients)
+    if (m_ingredients == newIngridients)
         return;
-    m_ingridients = newIngridients;
-    emit ingridientsChanged();
+    m_ingredients = newIngridients;
+    emit ingredientsChanged();
 }

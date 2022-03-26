@@ -11,25 +11,25 @@ class RecipeFilterProxyModel : public QSortFilterProxyModel
     Q_OBJECT
 
     Q_PROPERTY(RecipeModel* model READ model WRITE setModel NOTIFY modelChanged)
-    Q_PROPERTY(QStringList ingridients READ ingridients WRITE setIngridients NOTIFY ingridientsChanged)
+    Q_PROPERTY(QStringList ingredients READ ingredients WRITE setIngredients NOTIFY ingredientsChanged)
 
 public:
     RecipeFilterProxyModel(QObject * parent = nullptr);
 
     RecipeModel *model() const;
     void setModel(RecipeModel *newModel);
-    const QStringList &ingridients() const;
-    void setIngridients(const QStringList &newIngridients);
+    const QStringList &ingredients() const;
+    void setIngredients(const QStringList &newIngridients);
 
 signals:
 
     void modelChanged();
-    void ingridientsChanged();
+    void ingredientsChanged();
 
 private:
 
     RecipeModel *m_model;
-    QStringList m_ingridients;
+    QStringList m_ingredients;
 
 protected:
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;

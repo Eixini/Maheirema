@@ -73,6 +73,7 @@ public:
     // Функция для вызова извне (QML), принимающая список ингридиентов, и выдающая доступные рецепты, если таковые есть
     QVector <RecipeData> obtainingRecipesForAvailableIngredients(QStringList availableIngredients);
     Q_INVOKABLE QString openRecipeFile(QString fileName);
+    Q_INVOKABLE int numberEligibleRecipes(QStringList);
 
     int errorCode() const;
 

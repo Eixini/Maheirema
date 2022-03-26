@@ -113,18 +113,18 @@ Page{
                     recipeModel.setIntroducedIngredients(tagsTextList);
                     console.log("Number of Ingredients Introduced (in QML):" + tagsTextList.length);       // В целях отладки
 
-                    avaibleIngredientsList.obtainingRecipesForAvailableIngredients(tagsTextList)
+//                    avaibleIngredientsList.obtainingRecipesForAvailableIngredients(tagsTextList)
 //                    resultRecipeWindow.recipeModel.setIntroducedIngredients(tagsTextList);
 
                     let suitableDataSize = 0;
-                    suitableDataSize = avaibleIngredientsList.getListSuitableRecipesSize();
+                    suitableDataSize = avaibleIngredientsList.numberEligibleRecipes(tagsTextList);
 
                     console.log("IN ON CLICK HANDLER: " + suitableDataSize);
 
                     // If the number of matching recipes is not equal to 0,
                     // then a window with the results is opened
                     if(suitableDataSize !== 0){
-                        stackView.push(recultRecipePageComponent.createObject(parent, {ingredients:tagsTextList}));
+                        stackView.push(resultRecipePageComponent.createObject(parent, {ingredients:tagsTextList}));
 
                         windowMain.statusText =
                                 String("Found according to your request " + suitableDataSize + " recipes! ");

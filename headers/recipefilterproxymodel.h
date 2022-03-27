@@ -5,6 +5,7 @@
 #include <QQmlListProperty>
 
 #include "headers/recipemodel.h"
+#include "headers/reciperequest.h"
 
 class RecipeFilterProxyModel : public QSortFilterProxyModel
 {

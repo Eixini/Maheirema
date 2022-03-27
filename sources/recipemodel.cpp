@@ -81,6 +81,8 @@ void RecipeModel::recipesLoaded(){
     suitableRecipeData = new RecipeRequest(this);
 
     auto receivedData = suitableRecipeData->obtainingRecipesForAvailableIngredients(getIntroducedIngredients());
+    qDebug() << "Call recipeLoaded(), data to = " << availableIngredients_.size();
+    qDebug() << "data from =" << receivedData.size();
     beginInsertRows(QModelIndex(), m_preparedRecipeData.size() , m_preparedRecipeData.size() + receivedData.size());
     for(auto i = 0; i < receivedData.size(); i++) {
         RecipeData rData;
@@ -93,6 +95,7 @@ void RecipeModel::recipesLoaded(){
         m_preparedRecipeData.append(rData);
 
     }
+    qDebug() << "New Data size in model: " << m_preparedRecipeData.size();
     endInsertRows();
 
 }

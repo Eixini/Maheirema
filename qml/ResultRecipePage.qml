@@ -7,6 +7,7 @@ import RecipeModel
 
 Page{
     property RecipeModel model
+    property alias ingredientsForModel: filteredModel.ingredients
 
     id: resultRecipeWindow
     title: "Mahεirεma"
@@ -15,6 +16,10 @@ Page{
         id: filteredModel
         model: resultRecipeWindow.model
         ingredients: []
+
+        onIngredientsChanged: {
+            console.log("In QML ResultRecipe Page, input data count:" + filteredModel.ingredients);
+        }
     }
 
     Image {

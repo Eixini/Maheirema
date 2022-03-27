@@ -1,4 +1,5 @@
 #include "headers/recipefilterproxymodel.h"
+#include <QDebug>
 
 RecipeFilterProxyModel::RecipeFilterProxyModel(QObject *parent) : QSortFilterProxyModel(parent)
 {
@@ -31,13 +32,17 @@ void RecipeFilterProxyModel::setModel(RecipeModel *newModel)
 
 const QStringList &RecipeFilterProxyModel::ingredients() const
 {
+    qDebug() << "Call ingredients() method! Size:" << m_ingredients.size();
     return m_ingredients;
 }
 
 void RecipeFilterProxyModel::setIngredients(const QStringList &newIngridients)
 {
+    qDebug() << "Call setIngredients() method!";
+
     if (m_ingredients == newIngridients)
         return;
     m_ingredients = newIngridients;
+    qDebug() << "setIngredients(): " << m_ingredients.size();
     emit ingredientsChanged();
 }

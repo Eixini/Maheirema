@@ -124,8 +124,8 @@ Page{
                     // If the number of matching recipes is not equal to 0,
                     // then a window with the results is opened
                     if(suitableDataSize !== 0){
-                        stackView.push(resultRecipePageComponent.createObject(parent, {"ingredients": tagsTextList}));
-
+                        stackView.push(resultRecipePageComponent.createObject(parent, {"ingredientsForModel": tagsTextList}));
+                        console.log(tagsTextList);
                         windowMain.statusText =
                                 String("Found according to your request " + suitableDataSize + " recipes! ");
                     }

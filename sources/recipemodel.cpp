@@ -77,10 +77,10 @@ QStringList RecipeModel::getIntroducedIngredients()
     return availableIngredients_;
 }
 
-void RecipeModel::recipesLoaded(){
+void RecipeModel::recipesLoaded(QStringList ingData){
     suitableRecipeData = new RecipeRequest(this);
 
-    auto receivedData = suitableRecipeData->obtainingRecipesForAvailableIngredients(getIntroducedIngredients());
+    auto receivedData = suitableRecipeData->obtainingRecipesForAvailableIngredients(ingData);
     qDebug() << "Call recipeLoaded(), data to = " << availableIngredients_.size();
     qDebug() << "data from =" << receivedData.size();
     beginInsertRows(QModelIndex(), m_preparedRecipeData.size() , m_preparedRecipeData.size() + receivedData.size());

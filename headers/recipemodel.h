@@ -59,7 +59,7 @@ public:
 public slots:
 
     //void recipesLoaded(QVector<QPair<QString, QString> > newData);
-    void recipesLoaded();
+    void recipesLoaded(QStringList ingData);
     int recipeCount() const;
 
 private:

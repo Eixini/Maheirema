@@ -22,6 +22,8 @@ public:
     const QStringList &ingredients() const;
     void setIngredients(const QStringList &newIngridients);
 
+    void updateRecipeData();
+
 signals:
 
     void modelChanged();

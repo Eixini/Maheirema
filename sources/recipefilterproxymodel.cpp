@@ -45,4 +45,15 @@ void RecipeFilterProxyModel::setIngredients(const QStringList &newIngridients)
     m_ingredients = newIngridients;
     qDebug() << "setIngredients(): " << m_ingredients.size();
     emit ingredientsChanged();
+
 }
+
+void RecipeFilterProxyModel::updateRecipeData()
+{
+    qDebug() << "Call updateRecipeData() method!";
+
+    m_model->recipesLoaded(this->ingredients());
+    emit modelChanged();
+}
+
+

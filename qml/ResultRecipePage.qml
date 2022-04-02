@@ -19,6 +19,7 @@ Page{
 
         onIngredientsChanged: {
             console.log("In QML ResultRecipe Page, input data count:" + filteredModel.ingredients);
+            filteredModel.updateRecipeData(filteredModel.ingredients);
         }
     }
 

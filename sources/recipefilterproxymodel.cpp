@@ -3,6 +3,7 @@
 
 RecipeFilterProxyModel::RecipeFilterProxyModel(QObject *parent) : QSortFilterProxyModel(parent)
 {
+    m_model = new RecipeModel(this);
 }
 
 bool RecipeFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
@@ -48,11 +49,11 @@ void RecipeFilterProxyModel::setIngredients(const QStringList &newIngridients)
 
 }
 
-void RecipeFilterProxyModel::updateRecipeData()
+void RecipeFilterProxyModel::updateRecipeData(QStringList ingData)
 {
-    qDebug() << "Call updateRecipeData() method!";
+    qDebug() << "Call RecipeFilterProxyModel::updateRecipeData() method! Input data size: " << ingData.size();
 
-    m_model->recipesLoaded(this->ingredients());
+    m_model->recipesLoaded(ingData);
     emit modelChanged();
 }
 

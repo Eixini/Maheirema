@@ -22,7 +22,7 @@ public:
     const QStringList &ingredients() const;
     void setIngredients(const QStringList &newIngridients);
 
-    void updateRecipeData();
+    Q_INVOKABLE void updateRecipeData(QStringList ingData);
 
 signals:
 

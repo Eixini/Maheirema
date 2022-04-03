@@ -18,9 +18,10 @@ Page{
         ingredients: []
 
         onIngredientsChanged: {
-            console.log("In QML ResultRecipe Page, input data count:" + filteredModel.ingredients);
+            console.log("In QML ResultRecipe Page, input data:" + filteredModel.ingredients);
             filteredModel.updateRecipeData(filteredModel.ingredients);
         }
+
     }
 
     Image {
@@ -82,16 +83,6 @@ Page{
             }
 
         } // End of delegate block
-
-        Connections{
-            target: recipeData
-            function onDataChanged() {
-                console.log("! ============ DATA CHANGED ============ !");
-                console.log("NEW SUITABLE RECIPE DATA SIZE: ", recipeData.recipeCount());
-                 //recipeNameText = resultRecipesList.model.recipeName;
-            }
-
-        } // End of the Connections block
 
     } // End of the ListView block for the list of recipes
 

@@ -27,8 +27,9 @@ void RecipeFilterProxyModel::setModel(RecipeModel *newModel)
         return;
     beginResetModel();
     m_model = newModel;
+    setSourceModel(m_model);
     endResetModel();
-    emit modelChanged();
+    emit modelChanged(m_model);
 }
 
 const QStringList &RecipeFilterProxyModel::ingredients() const
@@ -54,7 +55,11 @@ void RecipeFilterProxyModel::updateRecipeData(QStringList ingData)
     qDebug() << "Call RecipeFilterProxyModel::updateRecipeData() method! Input data size: " << ingData.size();
 
     m_model->recipesLoaded(ingData);
-    emit modelChanged();
+
+    emit modelChanged(m_model);
+
+    qDebug() << "RecipeFilterProxyModel::updateRecipeData(). Model count: " << m_model->recipeCount();
+
 }
 
 

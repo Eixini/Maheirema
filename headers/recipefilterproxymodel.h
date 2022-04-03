@@ -26,7 +26,7 @@ public:
 
 signals:
 
-    void modelChanged();
+    void modelChanged(RecipeModel* Model);
     void ingredientsChanged();
 
 private:

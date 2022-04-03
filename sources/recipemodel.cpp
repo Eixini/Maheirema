@@ -48,15 +48,19 @@ bool RecipeModel::setData(const QModelIndex &index, const QVariant &value, int r
 {
     if(role == RecipeNameRole) {
         m_preparedRecipeData[index.row()].recipeName = value.toString();
+        emit dataChanged(index,index);
         return true;
     } else if (role == RecipeFileNameRole){
         m_preparedRecipeData[index.row()].recipeFileName= value.toString();
+        emit dataChanged(index,index);
         return true;
     } else if (role == NationalKitchenRole){
         m_preparedRecipeData[index.row()].nationalKitchen = value.toString();
+        emit dataChanged(index,index);
         return true;
     } else if (role == DishTypeRole) {
         m_preparedRecipeData[index.row()].dishType = value.toString();
+        emit dataChanged(index,index);
         return true;
     }
     return false;
@@ -98,6 +102,8 @@ void RecipeModel::recipesLoaded(QStringList ingData){
     }
     qDebug() << "New Data size in model: " << m_preparedRecipeData.size();
     endInsertRows();
+
+    emit dataChanged(this->index(0), this->index(m_preparedRecipeData.size()));
 
 }
 

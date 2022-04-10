@@ -8,7 +8,7 @@
         d:DesignWidth="500"
         Height="300"
         Width="500"
-        Title="Maheirema"
+        Title="Mahεirεma"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>

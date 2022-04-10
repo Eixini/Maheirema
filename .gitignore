@@ -1,0 +1,4 @@
+# Global ignoring of binaries and user-specific files
+
+# Visual Studio user-specific files
+.vs/

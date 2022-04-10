@@ -1,0 +1,21 @@
+# Global attributes for forcing line endings normalization of specific files
+
+* text=auto
+
+# Visual Studio projects and solutions
+*.sln    text eol=crlf encoding=UTF-8-BOM
+*.csproj text eol=crlf encoding=UTF-8
+
+# Build scripts
+*.props text eol=crlf encoding=UTF-8
+
+# Config files
+*.json text eol=crlf encoding=UTF-8
+
+# Source code files
+*.cs    text eol=crlf encoding=UTF-8
+*.xaml  text eol=crlf encoding=UTF-8
+*.axaml text eol=crlf encoding=UTF-8
+
+# Image assets
+*.gif binary

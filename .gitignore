@@ -2,7 +2,7 @@
 
 # Visual Studio user-specific files
 .vs/
-
+*.user
 
 # Build results
 bin/

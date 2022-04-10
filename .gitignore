@@ -1,5 +1,8 @@
 # Global ignoring of binaries and user-specific files
 
+# Windows user-specific files
+[Dd]esktop.ini
+
 # Visual Studio user-specific files
 .vs/
 *.user

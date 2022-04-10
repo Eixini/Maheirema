@@ -1,0 +1,17 @@
+{
+    "folders": [
+        {
+            "name": "Maheirema",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.autoGuessEncoding": true,
+        "files.exclude": {
+            ".git": true,
+            ".vs": true,
+            "bin": true,
+            "obj": true
+        }
+    }
+}

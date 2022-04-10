@@ -2,3 +2,8 @@
 
 # Visual Studio user-specific files
 .vs/
+
+
+# Build results
+bin/
+obj/

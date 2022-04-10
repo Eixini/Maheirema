@@ -4,8 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        d:DesignWidth="800"
-        d:DesignHeight="450"
-        Title="Eixini.Maheirema">
-    Welcome to Avalonia!
+        d:DesignHeight="300"
+        d:DesignWidth="500"
+        Height="300"
+        Width="500"
+        Title="Maheirema"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit"
+                          InputGesture="Alt+F4" />
+            </MenuItem>
+
+            <MenuItem Header="Help">
+                <MenuItem Header="About program..." />
+            </MenuItem>
+        </Menu>
+
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+            <Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </Window>

@@ -12,10 +12,11 @@
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/MaheiremaLogo.ico">
     <Grid>
-		<Grid.Background>
-			<ImageBrush Source="/Assets/MaheiremaBackground.png"  
-						Stretch="UniformToFill"/>
-		</Grid.Background>
+        <Grid.Background>
+            <ImageBrush Source="/Assets/MaheiremaBackground.png"  
+                        Stretch="UniformToFill" />
+        </Grid.Background>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />

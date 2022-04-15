@@ -12,11 +12,6 @@
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/MaheiremaLogo.ico">
     <Grid>
-        <Grid.Background>
-            <ImageBrush Source="/Assets/MaheiremaBackground.png"  
-                        Stretch="UniformToFill" />
-        </Grid.Background>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -33,11 +28,35 @@
             </MenuItem>
         </Menu>
 
-        <ScrollViewer Grid.Row="1"
-                      HorizontalScrollBarVisibility="Auto"
-                      VerticalScrollBarVisibility="Auto">
+        <Grid Grid.Row="1">
             <Grid>
+                <Grid.Background>
+                    <ImageBrush Source="/Assets/MaheiremaBackground.png"
+                                Stretch="UniformToFill" />
+                </Grid.Background>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0"
+                         Margin="5" />
+
+                <ScrollViewer Grid.Row="1"
+                              VerticalScrollBarVisibility="Auto">
+                    <WrapPanel Orientation="Horizontal">
+                    </WrapPanel>
+                </ScrollViewer>
+
+                <Grid Grid.Row="2">
+                    <Button Margin="5"
+                            HorizontalAlignment="Center">
+                        Recipe Request
+                    </Button>
+                </Grid>
             </Grid>
-        </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

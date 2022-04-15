@@ -1,0 +1,52 @@
+name: Building
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - default
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    env:
+      solution_name: Maheirema.sln
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Install .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Restore project
+      run: |
+        msbuild $env:solution_name /t:Restore /p:Configuration=$env:configuration
+      env:
+        configuration: ${{ matrix.configuration }}
+
+    - name: Building the application
+      run: |
+        msbuild /m $env:solution_name /p:Configuration=$env:configuration
+      env:
+        configuration: ${{ matrix.configuration }}
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: bin
+        path: bin/

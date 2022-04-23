@@ -41,12 +41,15 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0"
-                         Margin="5" />
+                <TextBox x:Name="IngredientEntryLine"
+                         Grid.Row="0"
+                         Margin="5"
+                         Watermark="Enter the ingredient and press &quot;Enter&quot;" />
 
                 <ScrollViewer Grid.Row="1"
                               VerticalScrollBarVisibility="Auto">
-                    <WrapPanel Orientation="Horizontal">
+                    <WrapPanel x:Name="TagField" 
+                              Orientation="Horizontal">
                     </WrapPanel>
                 </ScrollViewer>
 

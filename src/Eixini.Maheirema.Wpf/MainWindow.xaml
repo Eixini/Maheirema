@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Eixini.Maheirema.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow"
-        Height="450"
-        Width="800">
+        Height="300"
+        Width="500"
+        Title="Mahεirεma"
+        WindowStartupLocation="CenterScreen"
+        Icon="Assets/MaheiremaLogo.ico">
     <Grid>
     </Grid>
 </Window>

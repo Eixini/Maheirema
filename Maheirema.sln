@@ -5,7 +5,17 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eixini.Maheirema", "src\Eixini.Maheirema\Eixini.Maheirema.csproj", "{99798D99-1FB6-4127-A17C-4D0368503F03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eixini.Maheirema.Wpf", "src\Eixini.Maheirema.Wpf\Eixini.Maheirema.Wpf.csproj", "{F2D81EAE-A76A-4927-850B-77AC56A64C16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eixini.Maheirema.Wpf", "src\Eixini.Maheirema.Wpf\Eixini.Maheirema.Wpf.csproj", "{F2D81EAE-A76A-4927-850B-77AC56A64C16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6038A45-39C7-44CC-8C25-822FF561F1EA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		AnimatedLogo.gif = AnimatedLogo.gif
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

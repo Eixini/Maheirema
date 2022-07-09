@@ -20,9 +20,9 @@ public partial class MainWindow : Window {
                 Content = ingredient
             };
 
-            var testTagUC = new TagUserControl();
-            testTagUC.TagContent(ingredient);
-            TagFieldWrapPanel.Children.Add(testTagUC);
+            var tag = new TagUserControl();
+            tag.TagContent(ingredient);
+            TagFieldWrapPanel.Children.Add(tag);
 
             EntryLineTextBox.Clear();
         }

@@ -40,20 +40,22 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox x:Name="IngredientEntryLine"
+                <TextBox x:Name="EntryLineTextBox"
                          Grid.Row="0"
-                         Margin="5" />
+                         Margin="5" KeyDown="EntryLineTextBox_KeyDown" />
 
                 <ScrollViewer Grid.Row="1"
                               VerticalScrollBarVisibility="Auto">
-                    <WrapPanel x:Name="TagField" 
-                              Orientation="Horizontal">
+                    <WrapPanel x:Name="TagFieldWrapPanel" 
+                               Orientation="Horizontal">
                     </WrapPanel>
                 </ScrollViewer>
 
                 <Grid Grid.Row="2">
-                    <Button Margin="5"
-                            HorizontalAlignment="Center">
+                    <Button x:Name="RecipeRequestButton"
+                            Margin="5"
+                            HorizontalAlignment="Center"
+                            Click="RecipeRequestButton_Click">
                         Recipe Request
                     </Button>
                 </Grid>

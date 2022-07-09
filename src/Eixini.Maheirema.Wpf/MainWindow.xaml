@@ -1,9 +1,9 @@
-﻿<Window x:Class="Eixini.Maheirema.Wpf.MainWindow"
+<Window x:Class="Eixini.Maheirema.Wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Eixini.Maheirema.Wpf"
+        xmlns:l="clr-namespace:Eixini.Maheirema.Wpf"
         mc:Ignorable="d"
         Height="300"
         Width="500"
@@ -42,13 +42,13 @@
 
                 <TextBox x:Name="EntryLineTextBox"
                          Grid.Row="0"
-                         Margin="5" KeyDown="EntryLineTextBox_KeyDown" />
+                         Margin="5"
+                         KeyDown="EntryLineTextBox_KeyDown" />
 
                 <ScrollViewer Grid.Row="1"
                               VerticalScrollBarVisibility="Auto">
                     <WrapPanel x:Name="TagFieldWrapPanel" 
-                               Orientation="Horizontal">
-                    </WrapPanel>
+                               Orientation="Horizontal" />
                 </ScrollViewer>
 
                 <Grid Grid.Row="2">

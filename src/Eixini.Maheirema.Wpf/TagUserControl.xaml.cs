@@ -12,12 +12,15 @@ public partial class TagUserControl : UserControl {
     }
 
     public void TagContent(string text) {
-        TagContentLabel.Content = text;
+        TagButton.Content = text;
     }
 
     public void TagDeleteButton_Click(object sender, RoutedEventArgs e) {
-        //MessageBox.Show("TagDeleteButton handler call! Tag: " + TagContentLabel.Content);
-        ((Button)TagGrid.Parent).Content = null;
-        ((Grid)TagDeleteButton.Parent).Children.Remove(this);
+        var caller = sender as Button;
+        var grid = caller?.Parent as Grid;
+        var userControl = grid?.Parent as UserControl;
+        var wrapPanel = userControl?.Parent as WrapPanel;
+
+        wrapPanel?.Children.Remove(userControl);
     }
 }

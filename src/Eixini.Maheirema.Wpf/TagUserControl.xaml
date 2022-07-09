@@ -5,36 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:l="clr-namespace:Eixini.Maheirema.Wpf"
              mc:Ignorable="d"
-             d:DesignHeight="450"
-             d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="283*" />
-            <RowDefinition Height="167*" />
-        </Grid.RowDefinitions>
+             d:DesignHeight="100"
+             d:DesignWidth="150">
+    <Grid x:Name="TagGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
         <Button x:Name="TagButton"
-                Margin="5,5,5,5"
-                Grid.RowSpan="2">
-            <Grid x:Name="TagGrid">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                Grid.Column="0"
+                Margin="5"
+                Padding="5">
+            Label in button
+        </Button>
 
-                <Label x:Name="TagContentLabel"
-                       Grid.Column="0">
-                    Label in button
-                </Label>
-
-                <Button x:Name="TagDeleteButton"
-                        Grid.Column="1"
-                        BorderThickness="0"
-                        Background="{x:Null}"
-                        Click="TagDeleteButton_Click">
-                    x
-                </Button>
-            </Grid>
+        <Button x:Name="TagDeleteButton"
+                Grid.Column="1"
+                Click="TagDeleteButton_Click"
+                Margin="5"
+                Padding="5">
+            x
         </Button>
     </Grid>
 </UserControl>

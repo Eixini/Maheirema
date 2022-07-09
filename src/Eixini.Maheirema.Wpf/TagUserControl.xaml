@@ -7,7 +7,9 @@
              mc:Ignorable="d"
              d:DesignHeight="100"
              d:DesignWidth="150">
-    <Grid x:Name="TagGrid">
+    <Grid x:Name="TagGrid"
+          Background="Aquamarine"
+          Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -16,7 +18,9 @@
         <Button x:Name="TagButton"
                 Grid.Column="0"
                 Margin="5"
-                Padding="5">
+                Padding="5"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}">
             Label in button
         </Button>
 
@@ -24,7 +28,9 @@
                 Grid.Column="1"
                 Click="TagDeleteButton_Click"
                 Margin="5"
-                Padding="5">
+                Padding="5"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}">
             x
         </Button>
     </Grid>

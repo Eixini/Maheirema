@@ -1,23 +1,21 @@
-name: Building
+name: Building application
 
-on:
-  push:
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - default
+on: [ push, pull_request ]
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  build-all:
+    name: 'Building'
+
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        os: [ windows-latest ]
+        platforms: [ win-x86, win-x64 ]
 
     env:
       solution_name: Maheirema.sln
+      project_path: src/Eixini.Maheirema.Wpf/Eixini.Maheirema.Wpf.csproj
 
     steps:
     - name: Checkout
@@ -30,23 +28,16 @@ jobs:
       with:
         dotnet-version: '6.0.x'
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1.1
-
-    - name: Restore project
+    - name: Install dependencies
       run: |
-        msbuild $env:solution_name /t:Restore /p:Configuration=$env:configuration
-      env:
-        configuration: ${{ matrix.configuration }}
+        dotnet restore
 
-    - name: Building the application
+    - name: Publishing application
       run: |
-        msbuild /m $env:solution_name /p:Configuration=$env:configuration
-      env:
-        configuration: ${{ matrix.configuration }}
+        dotnet publish $env:project_path -c Release -p:PublishSingleFile=true -r ${{ matrix.platforms }} --self-contained true -p:IncludeAllContentForSelfExtract=true -p:PublishReadyToRun=true -p:EnableCompressionInSingleFile=true
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: bin
-        path: bin/
+        name: publish-${{ matrix.platforms }}
+        path: bin/Release/${{ matrix.platforms }}/publish/

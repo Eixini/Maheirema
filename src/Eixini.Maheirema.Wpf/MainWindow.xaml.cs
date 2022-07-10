@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.IO;
 
 namespace Eixini.Maheirema.Wpf;
 
@@ -10,6 +11,7 @@ namespace Eixini.Maheirema.Wpf;
 public partial class MainWindow : Window {
     public MainWindow() {
         InitializeComponent();
+        DirectoryCheck();
     }
 
     private void EntryLineTextBox_KeyDown(object sender, KeyEventArgs e) {
@@ -43,10 +45,42 @@ public partial class MainWindow : Window {
 
             ingredients.Add(ingredient);
         }
+
+        // Планируется вызов метода сравнения ингредиентов и получение коллекции рецептов (имена файлов)
+        // Для дальнейшей обработки (открытие списка рецептов и просмотр в другом окне/странице)
     }
 
-    private void DirectoryCheck() {
-        var systemUserName = Environment.UserName as string;
+    private void DirectoryCheck() {  
+        var pathApplication = 
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + 
+            Path.DirectorySeparatorChar + "EixiniSoftware" + Path.DirectorySeparatorChar +
+            "Maheirema";
+
+        // Checking for the existence of the application directory
+        if (!Directory.Exists(pathApplication)) {
+            MessageBox.Show("Директория приложения не существует! Будет создана новая!"); // DEBUG MESSAGE
+            Directory.CreateDirectory(pathApplication);
+        } else {
+            MessageBox.Show("Директория приложения существует!");   // DEBUG MESSAGE
+        }
+
+        // Checking for the existence of a recipe directory
+        var pathRecipes = pathApplication + Path.DirectorySeparatorChar + "Recipes";
+        var pathIngredients = pathApplication + Path.DirectorySeparatorChar + "Ingredients";
+        if(!Directory.Exists(pathRecipes)) {
+            Directory.CreateDirectory(pathRecipes);
+        }
+        if (!Directory.Exists(pathIngredients)) {
+            Directory.CreateDirectory(pathIngredients);
+        }
+    }
+
+    private List<string> IngredientsComparison(List<string> enteredIngredients) {
+        List<string> result = new List<string>();
+
+
+
+        return result;
     }
 }
 

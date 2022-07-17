@@ -2,12 +2,23 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.IO;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace Eixini.Maheirema.Wpf;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
+
+struct RecipeInfo {
+    public string name;                 // Имя рецепта
+    public string nationalKitchen;      // Нация кухни
+    public string dishType;             // Тип блюда
+    public List<string> ingredients;    // Список ингредиентов
+    public string recipeFileName;       // Имя файла, в котором находится текст рецепта
+}
+
 public partial class MainWindow : Window {
     public MainWindow() {
         InitializeComponent();
@@ -37,7 +48,6 @@ public partial class MainWindow : Window {
             return;
         }
         var ingredients = new List<string>();
-
         foreach (var tag in TagFieldWrapPanel.Children) {
             
             var grid = tag as TagUserControl;
@@ -48,11 +58,13 @@ public partial class MainWindow : Window {
 
         // Планируется вызов метода сравнения ингредиентов и получение коллекции рецептов (имена файлов)
         // Для дальнейшей обработки (открытие списка рецептов и просмотр в другом окне/странице)
+
+        _ = IngredientsComparison(ingredients); // DEBUG
     }
 
     private void DirectoryCheck() {  
         var pathApplication = 
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + 
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + 
             Path.DirectorySeparatorChar + "EixiniSoftware" + Path.DirectorySeparatorChar +
             "Maheirema";
 
@@ -75,10 +87,71 @@ public partial class MainWindow : Window {
         }
     }
 
-    private List<string> IngredientsComparison(List<string> enteredIngredients) {
-        List<string> result = new List<string>();
+    private List<RecipeInfo> IngredientsComparison(List<string> enteredIngredients) {
+        List<RecipeInfo> result = new List<RecipeInfo>();
 
+        // LINQ , сравнения введеных ингредиентов с ингредиентами из рецептов (JSON)
+        var pathApplication =
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+            Path.DirectorySeparatorChar + "EixiniSoftware" + Path.DirectorySeparatorChar +
+            "Maheirema";
+        var pathRecipes = pathApplication + Path.DirectorySeparatorChar + "Recipes";
+        var pathIngredients = pathApplication + Path.DirectorySeparatorChar + "Ingredients";
 
+        var recipeInfoFiles = new List<string>();
+
+        // Retrieving Recipe Information Filenames
+        //recipeInfoFiles = Directory.GetFiles(pathIngredients).Select(a => Path.GetFileName(a)).Select(s => s).ToList();
+        recipeInfoFiles = Directory.GetFiles(pathIngredients).Select(s => s).ToList();
+
+        foreach (var file in recipeInfoFiles) { 
+
+            RecipeInfo recipeInfo = new RecipeInfo();   // Temporary recording of recipe data
+
+            XDocument recipeInfoFile = XDocument.Load(file);
+
+            XElement? rootXmlRecipeElement = recipeInfoFile.Element("recipeInfo");
+
+            // Getting the file name of a recipe
+            recipeInfo.recipeFileName = file.Replace(".xml", ".html").Replace("Ingredients", "Recipes");
+
+            if (rootXmlRecipeElement != null) {
+
+                // Traversing the child elements of the root element
+                foreach (XElement recipeInfoChild in rootXmlRecipeElement.Elements()) {
+
+                    if (recipeInfoChild.Name == "name") 
+                        recipeInfo.name = recipeInfoChild.Value;
+                    if(recipeInfoChild.Name == "nationalKitchen")
+                        recipeInfo.nationalKitchen = recipeInfoChild.Value;
+                    if(recipeInfoChild.Name == "dishType")
+                        recipeInfo.dishType = recipeInfoChild.Value;
+                    if(recipeInfoChild.Name == "ingredients") {
+
+                        recipeInfo.ingredients = new List<string> { };
+
+                        foreach (XElement ing in recipeInfoChild.Elements()) {
+                        
+                            recipeInfo.ingredients.Add(ing.Value);
+
+                        }
+                    }
+
+                }
+
+            }
+
+            result.Add(recipeInfo);
+
+            // DEBUG ============
+            string strTest = $"Ингредиенты рецепта \"{recipeInfo.name}\" : " ;
+            foreach (string? test in recipeInfo.ingredients)
+                strTest += test + ", ";
+            MessageBox.Show(strTest);
+            MessageBox.Show($"Файл рецепта - {recipeInfo.recipeFileName}");
+            // ==================
+
+        }
 
         return result;
     }

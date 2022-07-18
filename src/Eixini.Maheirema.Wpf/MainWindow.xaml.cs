@@ -56,10 +56,14 @@ public partial class MainWindow : Window {
             ingredients.Add(ingredient);
         }
 
+        ingredients.Sort();
+
         // Планируется вызов метода сравнения ингредиентов и получение коллекции рецептов (имена файлов)
         // Для дальнейшей обработки (открытие списка рецептов и просмотр в другом окне/странице)
 
-        _ = IngredientsComparison(ingredients); // DEBUG
+        List<RecipeInfo> suitableRecipes = IngredientsComparison(ingredients);
+
+        MessageBox.Show("Количество рецептов, удовлетворяющих введеным ингредиентам: " + suitableRecipes.Count.ToString());
     }
 
     private void DirectoryCheck() {  
@@ -130,26 +134,18 @@ public partial class MainWindow : Window {
 
                         recipeInfo.ingredients = new List<string> { };
 
-                        foreach (XElement ing in recipeInfoChild.Elements()) {
-                        
+                        foreach (XElement ing in recipeInfoChild.Elements())
                             recipeInfo.ingredients.Add(ing.Value);
 
-                        }
+                        recipeInfo.ingredients.Sort();
                     }
 
                 }
 
             }
-
-            result.Add(recipeInfo);
-
-            // DEBUG ============
-            string strTest = $"Ингредиенты рецепта \"{recipeInfo.name}\" : " ;
-            foreach (string? test in recipeInfo.ingredients)
-                strTest += test + ", ";
-            MessageBox.Show(strTest);
-            MessageBox.Show($"Файл рецепта - {recipeInfo.recipeFileName}");
-            // ==================
+            
+            if(!recipeInfo.ingredients.Except(enteredIngredients).Any())
+                result.Add(recipeInfo);
 
         }
 

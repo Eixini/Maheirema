@@ -1,7 +1,7 @@
 <div align="center">
   <img src="./AnimatedLogo.gif" alt="Application logo" />
 
-  ![Application version](https://img.shields.io/badge/version-development-%2300A287)
+  ![Application version](https://img.shields.io/badge/version-0.1.0--Alpha-%20%2304c6b4%20)
 
   <h1>Mahεirεma</h1>
 </div>

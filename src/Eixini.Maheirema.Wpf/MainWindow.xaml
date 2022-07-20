@@ -10,6 +10,7 @@
         Title="Mahεirεma"
         WindowStartupLocation="CenterScreen"
         Icon="Assets/MaheiremaLogo.ico">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,39 +28,12 @@
             </MenuItem>
         </Menu>
 
-        <Grid Grid.Row="1">
-            <Grid>
-                <Grid.Background>
-                    <ImageBrush ImageSource="Assets/MaheiremaBackground.png"
-                                Stretch="UniformToFill" />
-                </Grid.Background>
+        <Frame Name="MaheiremaMainFrame"
+               Grid.Row="1"
+               NavigationUIVisibility="Hidden"/>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <TextBox x:Name="EntryLineTextBox"
-                         Grid.Row="0"
-                         Margin="5"
-                         KeyDown="EntryLineTextBox_KeyDown" />
-
-                <ScrollViewer Grid.Row="1"
-                              VerticalScrollBarVisibility="Auto">
-                    <WrapPanel x:Name="TagFieldWrapPanel" 
-                               Orientation="Horizontal" />
-                </ScrollViewer>
-
-                <Grid Grid.Row="2">
-                    <Button x:Name="RecipeRequestButton"
-                            Margin="5"
-                            HorizontalAlignment="Center"
-                            Click="RecipeRequestButton_Click">
-                        Recipe Request
-                    </Button>
-                </Grid>
-            </Grid>
-        </Grid>
     </Grid>
+
+        
+
 </Window>

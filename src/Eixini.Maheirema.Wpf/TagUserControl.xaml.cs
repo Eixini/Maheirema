@@ -3,9 +3,6 @@ using System.Windows.Controls;
 
 namespace Eixini.Maheirema.Wpf;
 
-/// <summary>
-/// Логика взаимодействия для TagUserControl.xaml
-/// </summary>
 public partial class TagUserControl : UserControl {
     public TagUserControl() {
         InitializeComponent();

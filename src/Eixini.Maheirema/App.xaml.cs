@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace Eixini.Maheirema.Wpf;
+namespace Eixini.Maheirema;
 
 /// <summary>
 /// Interaction logic for App.xaml

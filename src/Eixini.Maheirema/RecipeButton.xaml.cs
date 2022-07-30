@@ -7,7 +7,7 @@ using System.IO;
 using System.Windows.Input;
 
 
-namespace Eixini.Maheirema.Wpf;
+namespace Eixini.Maheirema;
 public partial class RecipeButton : UserControl {
     public RecipeButton() {
         InitializeComponent();

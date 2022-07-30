@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Eixini.Maheirema.Wpf;
+namespace Eixini.Maheirema;
 
 public partial class TagUserControl : UserControl {
     public TagUserControl() {

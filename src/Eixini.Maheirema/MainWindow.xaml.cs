@@ -5,7 +5,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Linq;
 
-namespace Eixini.Maheirema.Wpf;
+namespace Eixini.Maheirema;
 
 public struct RecipeInfo {
     public string name;                 // Имя рецепта

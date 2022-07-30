@@ -8,7 +8,7 @@ using System.Windows.Documents;
 using System.IO;
 using System.Windows.Input;
 
-namespace Eixini.Maheirema.Wpf;
+namespace Eixini.Maheirema;
 
 public partial class ResultRecipePage : Page {
     public ResultRecipePage() {

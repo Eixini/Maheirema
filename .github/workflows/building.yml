@@ -15,7 +15,7 @@ jobs:
 
     env:
       solution_name: Maheirema.sln
-      project_path: src/Eixini.Maheirema.Wpf/Eixini.Maheirema.Wpf.csproj
+      project_path: src/Eixini.Maheirema/Eixini.Maheirema.csproj
 
     steps:
     - name: Checkout

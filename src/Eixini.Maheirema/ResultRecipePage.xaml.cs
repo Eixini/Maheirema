@@ -1,12 +1,8 @@
-using System;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 using System.Windows.Documents;
-using System.IO;
-using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace Eixini.Maheirema;
 
@@ -16,8 +12,8 @@ public partial class ResultRecipePage : Page {
     }
 
     public ResultRecipePage(List<RecipeInfo> availableRecipes) : this() {
-        foreach (RecipeInfo recipe in availableRecipes) {
-            RecipeButton recipeInfoButton = new RecipeButton();
+        foreach (var recipe in availableRecipes) {
+            var recipeInfoButton = new RecipeButton();
             recipeInfoButton.RecipeButtonElement.Click += ShowRecipe;
             recipeInfoButton.SetText(recipe.name);
             recipeInfoButton.RecipePath = recipe.recipeFileName;
@@ -35,16 +31,12 @@ public partial class ResultRecipePage : Page {
     }
 
     private void ShowRecipe(object sender, RoutedEventArgs e) {
-
         var recipeButtonElement = sender as Button;
-        RecipeButton recipeInfoObject = recipeButtonElement?.Parent as RecipeButton;
+        var recipeInfoObject = recipeButtonElement?.Parent as RecipeButton;
 
-        //Getting text from a recipe file
-        TextRange recipeFile = new TextRange(RecipeText.Document.ContentStart, RecipeText.Document.ContentEnd);
-        FileStream recipeFileStream = new FileStream(recipeInfoObject.RecipePath, FileMode.Open);
+        // Getting text from a recipe file
+        var recipeFile = new TextRange(RecipeText.Document.ContentStart, RecipeText.Document.ContentEnd);
+        var recipeFileStream = new FileStream(recipeInfoObject.RecipePath, FileMode.Open);
         recipeFile.Load(recipeFileStream, DataFormats.Rtf);
-
-
     }
 }
-

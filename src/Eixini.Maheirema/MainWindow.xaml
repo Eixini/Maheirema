@@ -10,7 +10,6 @@
         Title="Mahεirεma"
         WindowStartupLocation="CenterScreen"
         Icon="Assets/MaheiremaLogo.ico">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -28,12 +27,8 @@
             </MenuItem>
         </Menu>
 
-        <Frame Name="MaheiremaMainFrame"
+        <Frame x:Name="MaheiremaMainFrame"
                Grid.Row="1"
                NavigationUIVisibility="Hidden"/>
-
     </Grid>
-
-        
-
 </Window>

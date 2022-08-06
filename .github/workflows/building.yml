@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ windows-latest ]
-        platforms: [ win-x86, win-x64 ]
+        platforms: [ win-x86, win-x64, win7-x86, win7-x64 ]
 
     env:
       solution: Maheirema.sln

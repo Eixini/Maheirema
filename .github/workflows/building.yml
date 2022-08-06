@@ -14,8 +14,7 @@ jobs:
         platforms: [ win-x86, win-x64 ]
 
     env:
-      solution_name: Maheirema.sln
-      project_path: src/Eixini.Maheirema/Eixini.Maheirema.csproj
+      solution: Maheirema.sln
 
     steps:
     - name: Checkout
@@ -34,7 +33,7 @@ jobs:
 
     - name: Publishing application
       run: |
-        dotnet publish $env:project_path -c Release -p:PublishSingleFile=true -r ${{ matrix.platforms }} --self-contained true -p:IncludeAllContentForSelfExtract=true -p:PublishReadyToRun=true -p:EnableCompressionInSingleFile=true
+        dotnet publish $env:solution -c Release -p:PublishSingleFile=true -r ${{ matrix.platforms }} --self-contained true -p:IncludeAllContentForSelfExtract=true -p:PublishReadyToRun=true -p:EnableCompressionInSingleFile=true
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3

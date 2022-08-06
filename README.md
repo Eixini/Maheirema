@@ -1,7 +1,18 @@
 <div align="center">
-  <img src="./AnimatedLogo.gif" alt="Application logo" />
+  <p>
+    <a href="https://github.com/Eixini/Maheirema">
+      <img src="./AnimatedLogo.gif" alt="Application logo" />
+    </a>
+  </p>
 
-  ![Application version](https://img.shields.io/badge/version-0.1.0--Alpha-%20%2304c6b4%20)
+  <p>
+    <a href="https://github.com/Eixini/Maheirema/releases/tag/v0.1">
+      <img src="https://img.shields.io/github/v/release/Eixini/Maheirema?include_prereleases" alt="Latest release" />
+    </a>
+    <a href="https://github.com/Eixini/Maheirema/actions/workflows/building.yml">
+      <img src="https://img.shields.io/github/workflow/status/Eixini/Maheirema/Building application" alt="Building status" />
+    </a>
+  </p>
 
   <h1>Mahεirεma</h1>
 </div>
@@ -17,3 +28,22 @@ The cooking process becomes much easier when there is a handy tool at hand that 
 Oh yes, **Mahεirεma** comes to your rescue! All you have to do is enter the ingredients you have, and request a list of recipes in the app
 
 _I really hope that my application will help you in cooking!_
+
+## Requirements
+
+For building:
+
+- .NET SDK 6
+
+For development:
+
+- Visual Studio 2022 Community Edition
+- Visual Studio Code + C# plugin
+
+## Changelog
+
+All significant changes to this repository are documented in [this](CHANGELOG.md) file
+
+## License
+
+This project licensed under terms of the GNU GPL v2 license. See [this](LICENSE) file for details

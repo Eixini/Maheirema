@@ -7,9 +7,8 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Eixini.Maheirema/Eixini.Maheirema.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "${workspaceFolder}/Maheirema.sln",
+                "-consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -19,9 +18,19 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Eixini.Maheirema/Eixini.Maheirema.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "${workspaceFolder}/Maheirema.sln",
+                "-p:GenerateFullPaths=true",
+                "-p:PublishSingleFile=true",
+                "-c",
+                "Release",
+                "-r",
+                "win-x64",
+                "--self-contained",
+                "true",
+                "-p:IncludeAllContentForSelfExtract=true",
+                "-p:PublishReadyToRun=true",
+                "-p:EnableCompressionInSingleFile=true",
+                "-consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -33,7 +42,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Eixini.Maheirema/Eixini.Maheirema.csproj"
+                "${workspaceFolder}/Maheirema.sln"
             ],
             "problemMatcher": "$msCompile"
         }
